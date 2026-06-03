@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>엘리프 마곡 가든스퀘어 - 층별 도면 & 면적/임대료 계산기</title>
+  <meta name="description" content="엘리프 마곡 가든스퀘어의 층별 도면 확인 및 전용/분양면적 계산기. 평당 단가 기준 자금 계획 및 계약 평당 5만원 임대료 시뮬레이터 제공.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- 헤더 영역 -->
+  <header class="app-header">
+    <div class="brand-section">
+      <div class="brand-logo">ELIF</div>
+      <div class="brand-title">마곡 가든스퀘어 면적 & 임대료 계산기</div>
+    </div>
+    <div class="header-controls">
+      <!-- 테마 토글 버튼 -->
+      <button class="btn-theme-toggle" id="themeToggle" title="다크/라이트 모드 전환" aria-label="테마 전환">
+        <!-- Sun Icon -->
+        <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+        <!-- Moon Icon -->
+        <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- 메인 컨테이너 -->
+  <main class="main-container">
+    
+    <!-- 왼쪽 패널: 층 선택, 도면, 호실 그리드 -->
+    <section class="viewer-section">
+      
+      <!-- 층 네비게이션 -->
+      <nav class="floor-selector" id="floorSelector" aria-label="층 선택">
+        <button class="floor-tab active" data-floor="B1F">B1F</button>
+        <button class="floor-tab" data-floor="1F">1F</button>
+        <button class="floor-tab" data-floor="2F">2F</button>
+        <button class="floor-tab" data-floor="3F">3F</button>
+        <button class="floor-tab" data-floor="4F">4F</button>
+        <button class="floor-tab" data-floor="5F">5F</button>
+        <button class="floor-tab" data-floor="6F">6F</button>
+        <button class="floor-tab" data-floor="7F">7F</button>
+        <button class="floor-tab" data-floor="8F">8F</button>
+        <button class="floor-tab" data-floor="9F">9F</button>
+        <button class="floor-tab" data-floor="10F">10F</button>
+      </nav>
+
+      <!-- 층별 전체 합계 요약바 -->
+      <div class="floor-summary-bar" id="floorSummaryBar">
+        <div class="floor-summary-item">
+          <span class="floor-summary-label">총 호실수</span>
+          <span class="floor-summary-val" id="floorTotalRooms">0개</span>
+        </div>
+        <div class="floor-summary-item">
+          <span class="floor-summary-label">층 전체 전용면적</span>
+          <span class="floor-summary-val" id="floorTotalExArea">0.00 ㎡ (0.00 평)</span>
+        </div>
+        <div class="floor-summary-item">
+          <span class="floor-summary-label">층 전체 분양면적</span>
+          <span class="floor-summary-val" id="floorTotalCoArea">0.00 ㎡ (0.00 평)</span>
+        </div>
+      </div>
+
+      <!-- 도면 뷰어 -->
+      <article class="blueprint-card">
+        <div class="blueprint-header">
+          <h2 class="blueprint-title" id="floorTitle">지하 1층 평면도</h2>
+          <div class="viewer-actions">
+            <button class="btn-icon" id="zoomIn" title="확대" aria-label="확대">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            </button>
+            <button class="btn-icon" id="zoomOut" title="축소" aria-label="축소">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            </button>
+            <button class="btn-icon" id="zoomReset" title="화면 맞춤" aria-label="화면 맞춤">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+            </button>
+          </div>
+        </div>
+        
+        <!-- 도면 이미지 로드 영역 (마우스 드래그 & 휠 줌 기능 지원) -->
+        <div class="blueprint-viewer" id="blueprintViewer">
+          <img src="assets/images/B1F.png" alt="지하 1층 평면도" class="blueprint-img" id="blueprintImg">
+        </div>
+      </article>
+
+      <!-- 호실 목록 -->
+      <article class="room-grid-card">
+        <h3 class="room-grid-title" style="display:flex; justify-content:space-between; align-items:center;">
+          <span>호실 선택 (다중 선택 가능)</span>
+          <span style="font-size:0.8rem; font-weight:normal; color:var(--text-muted);">*클릭 시 선택 토글</span>
+        </h3>
+        <div class="room-grid" id="roomGrid">
+          <!-- JS에서 동적 렌더링 -->
+        </div>
+      </article>
+
+    </section>
+
+    <!-- 오른쪽 패널: 계산기 & 관심 견적서 -->
+    <section class="control-section">
+      
+      <!-- 상세 계산기 -->
+      <article class="calculator-card">
+        <div class="section-title">
+          <h2 id="selectedRoomTitle" style="font-size:1.15rem; word-break:break-all;">호실을 선택해주세요</h2>
+          <div class="unit-switch">
+            <button class="unit-btn active" id="unitM2" data-unit="m2">㎡</button>
+            <button class="unit-btn" id="unitPy" data-unit="py">평</button>
+          </div>
+        </div>
+
+        <!-- 면적 상세 정보 -->
+        <div class="info-grid">
+          <div class="info-box">
+            <span class="info-label">합산 전용면적</span>
+            <div>
+              <span class="info-value" id="exArea">0.00</span>
+              <span class="info-unit" id="exAreaUnit">㎡</span>
+            </div>
+          </div>
+          <div class="info-box">
+            <span class="info-label">합산 분양(계약)면적</span>
+            <div>
+              <span class="info-value" id="coArea">0.00</span>
+              <span class="info-unit" id="coAreaUnit">㎡</span>
+            </div>
+          </div>
+          <div class="info-box">
+            <span class="info-label">평균 전용률</span>
+            <div>
+              <span class="info-value" id="ratioVal">0.0</span>
+              <span class="info-unit">%</span>
+            </div>
+          </div>
+          <div class="info-box">
+            <span class="info-label">선택한 용도</span>
+            <div>
+              <span class="info-value" id="roomType" style="font-size: 0.95rem; font-family: var(--font-ko); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">선택 안 됨</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 입력 영역 (분양가 및 임대료) -->
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1.5rem;">
+          <!-- 분양 단가 입력 -->
+          <div class="input-group" style="margin-bottom:0;">
+            <label class="input-label" for="unitPrice" id="priceLabel">평당 분양가</label>
+            <div class="input-wrapper">
+              <input type="text" class="price-input" id="unitPrice" placeholder="0" disabled>
+              <span class="input-suffix" id="priceSuffix">만원/평</span>
+            </div>
+          </div>
+          <!-- 임대 단가 입력 -->
+          <div class="input-group" style="margin-bottom:0;">
+            <label class="input-label" for="leaseUnitPrice" id="leasePriceLabel">평당 월 임대료</label>
+            <div class="input-wrapper">
+              <input type="text" class="price-input" id="leaseUnitPrice" placeholder="50,000" value="50,000" disabled>
+              <span class="input-suffix" id="leasePriceSuffix">원/평</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 상세 시뮬레이션 결과 (탭 형태로 통합 출력) -->
+        <div class="schedule-section">
+          <!-- 임대 시뮬레이션 -->
+          <div style="border-bottom:1px dashed var(--border-color); padding-bottom:0.75rem; margin-bottom:0.75rem; display:flex; flex-direction:column; gap:0.5rem;">
+            <h4 style="font-size:0.85rem; font-weight:700; color:var(--brand-gold);">임대료 시뮬레이션</h4>
+            <div class="schedule-row">
+              <span class="schedule-label">예상 월 임대료</span>
+              <span class="schedule-val" id="amtMonthlyLease" style="color:var(--text-primary);">0 원</span>
+            </div>
+            <div class="schedule-row">
+              <span class="schedule-label">예상 임대 보증금 <span class="schedule-pct">월세 10배</span></span>
+              <span class="schedule-val" id="amtDeposit" style="color:var(--text-primary);">0 원</span>
+            </div>
+          </div>
+          
+          <!-- 분양가 시뮬레이션 -->
+          <h4 style="font-size:0.85rem; font-weight:700; color:var(--brand-gold);">분양가 시뮬레이션</h4>
+          <div class="schedule-row">
+            <span class="schedule-label">계약금<span class="schedule-pct">10%</span></span>
+            <span class="schedule-val" id="amtContract">0 원</span>
+          </div>
+          <div class="schedule-row">
+            <span class="schedule-label">중도금<span class="schedule-pct">50%</span></span>
+            <span class="schedule-val" id="amtMiddle">0 원</span>
+          </div>
+          <div class="schedule-row">
+            <span class="schedule-label">잔금<span class="schedule-pct">40%</span></span>
+            <span class="schedule-val" id="amtRemain">0 원</span>
+          </div>
+          <div class="schedule-row schedule-total">
+            <span class="schedule-label">총 합산 분양가</span>
+            <span class="schedule-val" id="amtTotal">0 원</span>
+          </div>
+        </div>
+
+        <!-- 추가/초기화 버튼 -->
+        <div class="btn-action-group">
+          <button class="btn-secondary" id="btnReset">초기화</button>
+          <button class="btn-primary" id="btnAddToEstimate" disabled>
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            견적 담기
+          </button>
+        </div>
+      </article>
+
+      <!-- 견적서 관리 -->
+      <article class="estimate-card">
+        <h2 class="section-title">관심 호실 견적서</h2>
+        
+        <!-- 견적 담긴 리스트 -->
+        <div class="estimate-list" id="estimateList">
+          <div class="empty-estimate">담긴 호실이 없습니다.<br>도면에서 호실을 선택해 견적을 추가해보세요.</div>
+        </div>
+
+        <!-- 일괄 집계 정보 -->
+        <div class="estimate-summary">
+          <div class="estimate-summary-row">
+            <span>선택 호실 수</span>
+            <span id="estCount" style="font-family: var(--font-en); font-weight: 600;">0 개</span>
+          </div>
+          <div class="estimate-summary-row">
+            <span>합산 전용면적</span>
+            <span id="estExArea">0.00 ㎡ (0.00 평)</span>
+          </div>
+          <div class="estimate-summary-row">
+            <span>합산 분양면적</span>
+            <span id="estCoArea">0.00 ㎡ (0.00 평)</span>
+          </div>
+          <div class="estimate-summary-row">
+            <span>합산 월 임대료</span>
+            <span id="estTotalLease" style="font-weight: 600;">0 원</span>
+          </div>
+          <div class="estimate-summary-row estimate-summary-row total">
+            <span>총 합산 분양가</span>
+            <span id="estTotalAmt">0 원</span>
+          </div>
+        </div>
+
+        <!-- 견적서 출력 제어 -->
+        <div class="btn-action-group">
+          <button class="btn-secondary" id="btnExportCSV">엑셀 다운로드</button>
+          <button class="btn-primary" id="btnPrint">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+            견적서 인쇄 / PDF
+          </button>
+        </div>
+      </article>
+
+    </section>
+
+  </main>
+
+  <!-- 꼬리말 -->
+  <footer class="app-footer">
+    <p>&copy; 2026 엘리프 마곡 가든스퀘어. 모든 데이터는 분양 계약 전 홍보관에서 반드시 재확인하시기 바랍니다.</p>
+  </footer>
+
+  <!-- 스크립트 로드 (데이터 및 비즈니스 로직) -->
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

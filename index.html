@@ -217,6 +217,13 @@
       <article class="estimate-card">
         <h2 class="section-title">관심 호실 견적서</h2>
         
+        <!-- 견적 탭 컨트롤 추가 -->
+        <div class="estimate-tabs" id="estimateTabs">
+          <button class="estimate-tab active" data-tab="1">1차 견적</button>
+          <button class="estimate-tab" data-tab="2">2차 견적</button>
+          <button class="estimate-tab" data-tab="3">3차 견적</button>
+        </div>
+        
         <!-- 견적 담긴 리스트 -->
         <div class="estimate-list" id="estimateList">
           <div class="empty-estimate">담긴 호실이 없습니다.<br>도면에서 호실을 선택해 견적을 추가해보세요.</div>
@@ -253,6 +260,64 @@
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
             견적서 인쇄 / PDF
           </button>
+        </div>
+      </article>
+
+      <!-- 견적 비교 대시보드 -->
+      <article class="comparison-card" id="comparisonCard">
+        <h2 class="section-title">
+          <span>견적 비교 대시보드</span>
+          <span style="font-size:0.75rem; font-weight:normal; color:var(--text-muted);">*1~3차 견적 일괄 비교</span>
+        </h2>
+        <div class="comparison-table-wrapper">
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>비교 항목</th>
+                <th class="col-est-1">1차 견적</th>
+                <th class="col-est-2">2차 견적</th>
+                <th class="col-est-3">3차 견적</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>선택 호실 수</td>
+                <td id="compareCount1">-</td>
+                <td id="compareCount2">-</td>
+                <td id="compareCount3">-</td>
+              </tr>
+              <tr>
+                <td>합산 전용면적</td>
+                <td id="compareExArea1">-</td>
+                <td id="compareExArea2">-</td>
+                <td id="compareExArea3">-</td>
+              </tr>
+              <tr>
+                <td>합산 분양면적</td>
+                <td id="compareCoArea1">-</td>
+                <td id="compareCoArea2">-</td>
+                <td id="compareCoArea3">-</td>
+              </tr>
+              <tr>
+                <td>평균 전용률</td>
+                <td id="compareRatio1">-</td>
+                <td id="compareRatio2">-</td>
+                <td id="compareRatio3">-</td>
+              </tr>
+              <tr>
+                <td>합산 월 임대료</td>
+                <td id="compareLease1">-</td>
+                <td id="compareLease2">-</td>
+                <td id="compareLease3">-</td>
+              </tr>
+              <tr class="highlight-row">
+                <td>총 합산 분양가</td>
+                <td id="compareAmt1">-</td>
+                <td id="compareAmt2">-</td>
+                <td id="compareAmt3">-</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </article>
 

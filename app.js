@@ -5,7 +5,12 @@ document.addEventListener("DOMContentLoaded", () => {
   let currentFloor = "B1F";
   let selectedRooms = []; // 다중 선택된 호실 객체 배열
   let currentUnit = "m2"; // 'm2' or 'py'
-  let estimates = [];
+  let estimates = {
+    1: [],
+    2: [],
+    3: []
+  };
+  let activeEstimateTab = 1;
   
   // 도면 드래그 & 줌 상태
   let zoomLevel = 1.0;
@@ -466,9 +471,11 @@ document.addEventListener("DOMContentLoaded", () => {
     let addedCount = 0;
     let duplicateRooms = [];
     
+    const currentTabEstimates = estimates[activeEstimateTab] || [];
+    
     selectedRooms.forEach(roomObj => {
       const key = `${currentFloor}-${roomObj.room}`;
-      const isExist = estimates.some(item => `${item.floor}-${item.room}` === key);
+      const isExist = currentTabEstimates.some(item => `${item.floor}-${item.room}` === key);
       
       if (isExist) {
         duplicateRooms.push(roomObj.room);
@@ -493,32 +500,36 @@ document.addEventListener("DOMContentLoaded", () => {
         leasePrice: roomLeaseWon
       };
       
-      estimates.push(estimateItem);
+      currentTabEstimates.push(estimateItem);
       addedCount++;
     });
     
     if (duplicateRooms.length > 0) {
-      alert(`이미 견적서에 추가된 호실(${duplicateRooms.join(", ")})은 제외하고 추가되었습니다.`);
+      alert(`이미 ${activeEstimateTab}차 견적서에 추가된 호실(${duplicateRooms.join(", ")})은 제외하고 추가되었습니다.`);
     }
     
     if (addedCount > 0) {
+      estimates[activeEstimateTab] = currentTabEstimates;
       saveEstimatesToStorage();
       renderEstimates();
+      updateComparisonDashboard();
     }
     
     // 추가 후 그리드 선택 해제 및 계산기 초기화
     document.querySelectorAll(".room-btn").forEach(b => b.classList.remove("selected"));
     resetCalculatorUI();
   });
-
+  
   function renderEstimates() {
     estimateList.innerHTML = "";
     
-    if (estimates.length === 0) {
+    const currentTabEstimates = estimates[activeEstimateTab] || [];
+    
+    if (currentTabEstimates.length === 0) {
       estimateList.innerHTML = `
         <div class="empty-estimate">담긴 호실이 없습니다.<br>도면에서 호실을 선택해 견적을 추가해보세요.</div>
       `;
-      updateSummary(0, 0, 0, 0, 0, 0);
+      updateSummary(0, 0, 0, 0, 0, 0, 0);
       return;
     }
     
@@ -529,7 +540,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let totalAmt = 0;
     let totalLeaseAmt = 0;
     
-    estimates.forEach(item => {
+    currentTabEstimates.forEach(item => {
       totalExM2 += item.exclusive_m2;
       totalCoM2 += item.contract_m2;
       totalExPy += item.exclusive_pyung;
@@ -561,15 +572,16 @@ document.addEventListener("DOMContentLoaded", () => {
       estimateList.appendChild(div);
     });
     
-    updateSummary(estimates.length, totalExM2, totalCoM2, totalExPy, totalCoPy, totalAmt, totalLeaseAmt);
+    updateSummary(currentTabEstimates.length, totalExM2, totalCoM2, totalExPy, totalCoPy, totalAmt, totalLeaseAmt);
   }
-
+  
   function removeEstimate(id) {
-    estimates = estimates.filter(item => item.id !== id);
+    estimates[activeEstimateTab] = (estimates[activeEstimateTab] || []).filter(item => item.id !== id);
     saveEstimatesToStorage();
     renderEstimates();
+    updateComparisonDashboard();
   }
-
+  
   function updateSummary(count, exM2, coM2, exPy, coPy, totalAmtVal, totalLeaseVal) {
     estCount.textContent = `${count} 개`;
     estExArea.textContent = `${formatNumber(exM2, 2)} ㎡ (${formatNumber(exPy, 2)} 평)`;
@@ -577,27 +589,50 @@ document.addEventListener("DOMContentLoaded", () => {
     estTotalLease.textContent = formatKoreanPrice(totalLeaseVal);
     estTotalAmt.textContent = formatKoreanPrice(totalAmtVal);
   }
-
+  
   function saveEstimatesToStorage() {
-    localStorage.setItem("elif-estimates", JSON.stringify(estimates));
+    localStorage.setItem("elif-estimates-v2", JSON.stringify(estimates));
   }
-
+  
   function loadEstimatesFromStorage() {
-    const data = localStorage.getItem("elif-estimates");
-    if (data) {
+    const dataV2 = localStorage.getItem("elif-estimates-v2");
+    if (dataV2) {
       try {
-        estimates = JSON.parse(data);
-        renderEstimates();
+        estimates = JSON.parse(dataV2);
+        if (!estimates[1]) estimates[1] = [];
+        if (!estimates[2]) estimates[2] = [];
+        if (!estimates[3]) estimates[3] = [];
       } catch (e) {
-        estimates = [];
+        estimates = { 1: [], 2: [], 3: [] };
+      }
+    } else {
+      const oldData = localStorage.getItem("elif-estimates");
+      if (oldData) {
+        try {
+          const oldList = JSON.parse(oldData);
+          estimates = {
+            1: Array.isArray(oldList) ? oldList : [],
+            2: [],
+            3: []
+          };
+          saveEstimatesToStorage();
+          localStorage.removeItem("elif-estimates");
+        } catch (e) {
+          estimates = { 1: [], 2: [], 3: [] };
+        }
+      } else {
+        estimates = { 1: [], 2: [], 3: [] };
       }
     }
+    renderEstimates();
+    updateComparisonDashboard();
   }
-
+  
   // --- 엑셀(CSV) 다운로드 ---
   btnExportCSV.addEventListener("click", () => {
-    if (estimates.length === 0) {
-      alert("다운로드할 호실이 없습니다.");
+    const currentTabEstimates = estimates[activeEstimateTab] || [];
+    if (currentTabEstimates.length === 0) {
+      alert(`${activeEstimateTab}차 견적에 다운로드할 호실이 없습니다.`);
       return;
     }
     
@@ -610,36 +645,120 @@ document.addEventListener("DOMContentLoaded", () => {
     let totalCoPy = 0;
     let totalAmt = 0;
     let totalLease = 0;
-
-    estimates.forEach(item => {
+    
+    currentTabEstimates.forEach(item => {
       totalExM2 += item.exclusive_m2;
       totalCoM2 += item.contract_m2;
       totalExPy += item.exclusive_pyung;
       totalCoPy += item.contract_pyung;
       totalAmt += item.totalPrice;
       totalLease += item.leasePrice;
-
+      
       csvContent += `${item.floor},${item.room},${item.type},${item.exclusive_m2},${item.exclusive_pyung},${item.contract_m2},${item.contract_pyung},${item.unitPrice},${item.totalPrice},${item.leaseUnitPrice},${item.leasePrice}\n`;
     });
     
-    csvContent += `합계,${estimates.length}개 호실,,${totalExM2.toFixed(2)},${totalExPy.toFixed(2)},${totalCoM2.toFixed(2)},${totalCoPy.toFixed(2)},,${totalAmt},,${totalLease}\n`;
+    csvContent += `합계,${currentTabEstimates.length}개 호실,,${totalExM2.toFixed(2)},${totalExPy.toFixed(2)},${totalCoM2.toFixed(2)},${totalCoPy.toFixed(2)},,${totalAmt},,${totalLease}\n`;
     
     const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.setAttribute("href", url);
-    link.setAttribute("download", `엘리프_마곡_가든스퀘어_관심호실_견적서_${new Date().toISOString().slice(0, 10)}.csv`);
+    link.setAttribute("download", `엘리프_마곡_가든스퀘어_${activeEstimateTab}차_견적서_${new Date().toISOString().slice(0, 10)}.csv`);
     link.style.visibility = 'hidden';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
   });
-
+  
   btnPrint.addEventListener("click", () => {
-    if (estimates.length === 0) {
+    const currentTabEstimates = estimates[activeEstimateTab] || [];
+    if (currentTabEstimates.length === 0) {
       alert("인쇄할 견적 호실이 없습니다.");
       return;
     }
     window.print();
   });
+  
+  // --- 견적 탭 전환 이벤트 ---
+  const estimateTabs = document.getElementById("estimateTabs");
+  estimateTabs.addEventListener("click", (e) => {
+    const tab = e.target.closest(".estimate-tab");
+    if (!tab) return;
+    
+    document.querySelectorAll(".estimate-tab").forEach(btn => btn.classList.remove("active"));
+    tab.classList.add("active");
+    
+    activeEstimateTab = parseInt(tab.dataset.tab, 10);
+    renderEstimates();
+  });
+  
+  // --- 비교 대시보드 데이터 갱신 ---
+  function updateComparisonDashboard() {
+    for (let tabNum = 1; tabNum <= 3; tabNum++) {
+      const tabEstimates = estimates[tabNum] || [];
+      
+      const countEl = document.getElementById(`compareCount${tabNum}`);
+      const exAreaEl = document.getElementById(`compareExArea${tabNum}`);
+      const coAreaEl = document.getElementById(`compareCoArea${tabNum}`);
+      const ratioEl = document.getElementById(`compareRatio${tabNum}`);
+      const leaseEl = document.getElementById(`compareLease${tabNum}`);
+      const amtEl = document.getElementById(`compareAmt${tabNum}`);
+      
+      if (!countEl) continue;
+      
+      if (tabEstimates.length === 0) {
+        countEl.textContent = "-";
+        exAreaEl.textContent = "-";
+        coAreaEl.textContent = "-";
+        ratioEl.textContent = "-";
+        leaseEl.textContent = "-";
+        amtEl.textContent = "-";
+        continue;
+      }
+      
+      let sumExM2 = 0;
+      let sumCoM2 = 0;
+      let sumExPy = 0;
+      let sumCoPy = 0;
+      let sumTotalPrice = 0;
+      let sumLeasePrice = 0;
+      
+      tabEstimates.forEach(item => {
+        sumExM2 += item.exclusive_m2;
+        sumCoM2 += item.contract_m2;
+        sumExPy += item.exclusive_pyung;
+        sumCoPy += item.contract_pyung;
+        sumTotalPrice += item.totalPrice;
+        sumLeasePrice += item.leasePrice;
+      });
+      
+      countEl.textContent = `${tabEstimates.length}개 호실`;
+      exAreaEl.textContent = `${sumExM2.toFixed(2)}㎡ (${sumExPy.toFixed(2)}평)`;
+      coAreaEl.textContent = `${sumCoM2.toFixed(2)}㎡ (${sumCoPy.toFixed(2)}평)`;
+      
+      const avgRatio = (sumExM2 / sumCoM2) * 100;
+      ratioEl.textContent = `${avgRatio.toFixed(2)}%`;
+      
+      leaseEl.textContent = formatKoreanPriceCompact(sumLeasePrice);
+      amtEl.textContent = formatKoreanPriceCompact(sumTotalPrice);
+    }
+  }
+  
+  function formatKoreanPriceCompact(won) {
+    if (won === 0) return "0원";
+    
+    const eok = Math.floor(won / 100000000);
+    const remainder = won % 100000000;
+    const man = Math.floor(remainder / 10000);
+    
+    let result = "";
+    if (eok > 0) {
+      result += `${eok}억 `;
+    }
+    if (man > 0) {
+      result += `${man.toLocaleString()}만`;
+    }
+    
+    return eok > 0 || man > 0 ? `${result}원` : `${won.toLocaleString()}원`;
+  }
 });

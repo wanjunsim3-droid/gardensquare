@@ -817,55 +817,194 @@ body {
   background: var(--bg-secondary);
 }
 
+/* 견적 차수 선택 탭 */
+.estimate-tabs {
+  display: flex;
+  background: var(--bg-primary);
+  padding: 0.25rem;
+  border-radius: 10px;
+  border: 1px solid var(--border-color);
+  margin-bottom: 1.25rem;
+}
+
+.estimate-tab {
+  flex: 1;
+  padding: 0.6rem;
+  border: none;
+  background: transparent;
+  font-family: var(--font-ko);
+  font-size: 0.9rem;
+  font-weight: 700;
+  border-radius: 8px;
+  cursor: pointer;
+  color: var(--text-secondary);
+  transition: var(--transition);
+  text-align: center;
+}
+
+.estimate-tab:hover {
+  color: var(--brand-gold);
+  background: var(--brand-gold-light);
+}
+
+.estimate-tab.active {
+  background: var(--brand-gold);
+  color: #ffffff;
+  box-shadow: 0 4px 10px rgba(194, 159, 83, 0.2);
+}
+
+/* 비교 대시보드 카드 */
+.comparison-card {
+  background: var(--bg-secondary);
+  border-radius: 16px;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-md);
+  padding: 1.75rem;
+}
+
+.comparison-table-wrapper {
+  overflow-x: auto;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+}
+
+.comparison-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+  font-size: 0.85rem;
+}
+
+.comparison-table th, 
+.comparison-table td {
+  padding: 0.75rem 0.5rem;
+  border-bottom: 1px solid var(--border-color);
+  font-family: var(--font-ko);
+}
+
+.comparison-table th {
+  background: var(--bg-primary);
+  color: var(--text-secondary);
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.5px;
+}
+
+.comparison-table td {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+/* 비교 테이블 항목 컬럼 및 강조 */
+.comparison-table td:first-child,
+.comparison-table th:first-child {
+  text-align: left;
+  padding-left: 1rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  background: var(--bg-primary);
+  width: 110px;
+}
+
+.comparison-table tr:last-child td {
+  border-bottom: none;
+}
+
+.comparison-table .highlight-row td {
+  background: var(--brand-gold-light);
+  color: var(--brand-gold);
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.comparison-table .highlight-row td:first-child {
+  color: var(--brand-gold);
+}
+
 /* 인쇄 및 프린터 스타일 정의 */
 @media print {
   body {
     background: white !important;
-    color: black !important;
+    color: #000000 !important;
+    font-size: 10pt !important;
   }
   
+  /* 불필요한 UI 숨김 */
   .app-header, 
   .floor-selector,
   .floor-summary-bar,
   .blueprint-card, 
   .room-grid-card,
+  .calculator-card, /* 계산기 부분 숨김 */
   .btn-action-group,
   .btn-theme-toggle,
   .app-footer,
   .btn-delete,
-  .unit-switch {
+  .unit-switch,
+  .estimate-tabs {
     display: none !important;
   }
   
   .main-container {
     display: block !important;
     padding: 0 !important;
-  }
-  
-  .control-section {
+    margin: 0 !important;
+    max-width: 100% !important;
     width: 100% !important;
   }
   
-  .calculator-card, .estimate-card {
-    border: none !important;
+  .control-section {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 1.5cm !important;
+    width: 100% !important;
+  }
+
+  .estimate-card, 
+  .comparison-card {
+    border: 1px solid #ddd !important;
+    border-radius: 8px !important;
+    padding: 1.5rem !important;
+    background: #fff !important;
+    page-break-inside: avoid !important; /* 쪼개짐 방지 */
     box-shadow: none !important;
-    padding: 0 !important;
-    margin-bottom: 2rem !important;
-    background: transparent !important;
+    margin-bottom: 1.5cm !important;
   }
   
-  .calculator-card::before {
-    display: none !important;
+  /* 비교표 인쇄 스타일 조정 */
+  .comparison-table th, 
+  .comparison-table td {
+    border-bottom: 1px solid #000 !important;
+    color: #000 !important;
+  }
+  .comparison-table th:first-child,
+  .comparison-table td:first-child {
+    background: #eee !important;
+    border-right: 1px solid #ddd !important;
+  }
+  .comparison-table .highlight-row td {
+    background: #f5f5f5 !important;
+    font-weight: 700 !important;
+    color: #000 !important;
   }
   
+  /* 견적 리스트 출력 가독성 개선 */
+  .estimate-item {
+    border: 1px solid #eee !important;
+    background: #fafafa !important;
+    margin-bottom: 0.5rem !important;
+    padding: 0.5rem !important;
+  }
+  .estimate-item-desc {
+    color: #333 !important;
+  }
   .estimate-summary {
-    background: transparent !important;
-    border: 1px solid #000 !important;
-    color: black !important;
+    background: #fafafa !important;
+    border: 1px solid #ccc !important;
+    color: #000 !important;
   }
-  
   .estimate-summary-row.total {
-    border-top: 1px solid #000 !important;
-    color: black !important;
+    border-top: 1px dashed #000 !important;
+    color: #000 !important;
   }
 }

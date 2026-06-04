@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // --- 상태 변수 ---
   let currentFloor = "B1F";
   let selectedRooms = []; // 다중 선택된 호실 객체 배열
-  let currentUnit = "m2"; // 'm2' or 'py'
+  let currentUnit = "py"; // 'm2' or 'py' (기본 단위 '평'으로 설정)
   let estimates = {
     1: [],
     2: [],

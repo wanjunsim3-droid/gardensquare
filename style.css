@@ -95,6 +95,8 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
   padding: 1.25rem 2rem;
   background: var(--glass-bg);
   backdrop-filter: blur(var(--blur-val));
@@ -103,6 +105,7 @@ body {
   top: 0;
   z-index: 100;
   box-shadow: var(--shadow-sm);
+  transition: var(--transition);
 }
 
 .brand-section {
@@ -151,6 +154,51 @@ body {
   border-color: var(--brand-gold);
   color: var(--brand-gold);
   background-color: var(--brand-gold-light);
+}
+
+/* 대표문의 전화번호 스타일 */
+.header-phone {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-en);
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--brand-gold);
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 30px;
+  border: 1px solid var(--brand-gold-border);
+  background-color: var(--brand-gold-light);
+  transition: var(--transition);
+}
+
+.header-phone:hover {
+  background-color: var(--brand-gold);
+  color: #ffffff;
+  border-color: var(--brand-gold);
+  box-shadow: 0 4px 12px rgba(194, 159, 83, 0.25);
+}
+
+.header-phone svg {
+  stroke: currentColor;
+  flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  .app-header {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .brand-title {
+    display: none;
+  }
+  .header-phone {
+    font-size: 0.85rem;
+    padding: 0.4rem 0.75rem;
+  }
 }
 
 .main-container {

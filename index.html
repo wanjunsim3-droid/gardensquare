@@ -1,38 +1,314 @@
 <!DOCTYPE html>
-<html lang="ko" data-theme="light">
+<html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>엘리프 마곡 가든스퀘어 - 층별 도면 & 면적/임대료 계산기</title>
-  <meta name="description" content="엘리프 마곡 가든스퀘어의 층별 도면 확인 및 전용/분양면적 계산기. 평당 단가 기준 자금 계획 및 계약 평당 5만원 임대료 시뮬레이터 제공.">
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>엘리프 마곡 가든스퀘어 | 입주의향서 접수</title>
+    <meta name="description" content="엘리프 마곡 가든스퀘어 분양 및 임대 안내. 프리미엄 업무공간, 입주의향서(LOI) 접수 중.">
+    <meta name="naver-site-verification" content="d85b7eed7a237cff62d1bb14ef92037e8cfa8004" />
+    <meta name="keywords" content="계룡건설, 마곡보타닉게이트, 마곡100평, 마곡100평분양, 마곡100평임대, 마곡18블록, 마곡18B, 마곡200평분양, 마곡200평임대, 마곡20평임대, 마곡30평임대, 마곡40평임대, 마곡50평, 마곡60평임대, 마곡70평임대, 마곡80평임대, 마곡90평임대, 마곡LG사이언스파크, 마곡R&D센터, 마곡게룡건설, 마곡계룡건설, 마곡공공분양, 마곡18단지, 마곡공장, 마곡분양일정, 마곡사무실임대, 마곡사옥, 마곡상가분양, 마곡오피스, 마곡섹션오피스, 마곡역사무실, 마곡나루역사무실, 마곡연구실, 마곡지식산업센터, 양천향교역지식산업센터, 증미마스터벨류, 엘리프 마곡 가든스퀘어, 마곡지식산업센터분양, 강서구지식산업센터, 마곡아이파크디어반, 마곡창고">
+    
+    <!-- 구글 검색 및 브라우저 탭용 파피콘 (Favicon) -->
+    <link rel="icon" href="favicon.png" type="image/png">
+    <link rel="apple-touch-icon" href="favicon.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <header class="navbar">
+        <div class="container">
+            <div class="logo">
+                <span class="highlight">엘리프 마곡</span> 가든스퀘어
+            </div>
+            <nav class="nav-links">
+                <a href="#schedule">사업 일정</a>
+                <a href="#price">공급·가격 안내</a>
+                <a href="#floor-overview">층별 안내</a>
+                <a href="#floorplan">도면 안내</a>
+                <a href="#location">오시는 길</a>
+                <a href="#loi">입주의향서 접수</a>
+                <a href="tel:1666-5984" class="mobile-only-call">📞 상담문의 1666-5984</a>
+            </nav>
+            <div class="header-actions">
+                <button class="btn-theme-toggle" id="themeToggle" title="다크/라이트 모드 전환" aria-label="테마 전환" style="margin-right: 1rem; border: 1px solid var(--border); width: 2.5rem; height: 2.5rem; border-radius: 50%; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--text-main);">
+                    <!-- Sun Icon -->
+                    <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+                    <!-- Moon Icon -->
+                    <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+                </button>
+    
+                <a href="tel:1666-5984" class="btn btn-primary call-btn">1666-5984</a>
+                <button class="mobile-menu-toggle" aria-label="메뉴 열기">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
 
-  <!-- 헤더 영역 -->
-  <header class="app-header">
-    <div class="brand-section">
-      <div class="brand-logo">ELIF</div>
-      <div class="brand-title">마곡 가든스퀘어 면적 & 임대료 계산기</div>
-    </div>
-    <div class="header-controls">
-      <!-- 대표문의 전화번호 추가 -->
-      <a href="tel:1666-5984" class="header-phone" title="전화 상담 연결">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-        <span>대표문의 1666-5984</span>
-      </a>
-      <!-- 테마 토글 버튼 -->
-      <button class="btn-theme-toggle" id="themeToggle" title="다크/라이트 모드 전환" aria-label="테마 전환">
-        <!-- Sun Icon -->
-        <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
-        <!-- Moon Icon -->
-        <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
-      </button>
-    </div>
-  </header>
+    <section class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content container">
+            <div class="celebration-banner">
+                <span class="icon">🎉</span>
+                <div class="banner-text">
+                    <strong>엘리프 마곡 가든스퀘어 준공 완료!</strong>
+                    <span>마곡의 새로운 중심, 분양 및 임대 상담 환영</span>
+                </div>
+                <span class="icon">🎊</span>
+            </div>
+            <span class="badge">현재 입주의향서(LOI) 접수 중</span>
+            <h1 class="hero-title">엘리프 마곡 가든스퀘어<br>프리미엄 비즈니스 스페이스</h1>
+            <p class="hero-subtitle">완벽한 인프라와 미래가치를 품은 마곡의 새로운 중심</p>
+            <div class="hero-actions">
+                <a href="#loi" class="btn btn-large btn-gradient">입주의향서 접수안내</a>
+                <a href="tel:1666-5984" class="btn btn-large btn-outline">상담문의 1666-5984</a>
+            </div>
+        </div>
+    </section>
 
-  <!-- 메인 컨테이너 -->
-  <main class="main-container">
+    <section id="schedule" class="section schedule-section">
+        <div class="container">
+            <h2 class="section-title">사업 추진 일정 <span>(예정)</span></h2>
+            <p class="section-desc">사업 진행 상황에 따라 일부 변동될 수 있으나, 현재 계획된 타임라인은 다음과 같습니다.</p>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3 class="timeline-date">5월 말</h3>
+                        <p class="timeline-text" style="color: var(--accent); font-weight: bold;">준공 완료 ✅</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3 class="timeline-date">6월 ~ 7월</h3>
+                        <p class="timeline-text">서울시 가격 심의<br>분양 신고 및 모집공고</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3 class="timeline-date">7월 말 ~ 8월 초</h3>
+                        <p class="timeline-text">정식 계약 체결 예정</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3 class="timeline-date">9월 말</h3>
+                        <p class="timeline-text">입주 시작 예정</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="price" class="section price-section bg-light">
+        <div class="container">
+            <h2 class="section-title">공급 및 가격 안내</h2>
+            <p class="section-desc">본 사업지는 전체 임대 위주로 운영되며, 일부 섹션에 한해 분양이 진행됩니다.</p>
+
+            <div class="price-layout">
+                <div class="price-image-wrapper">
+                    <img src="office1.jpg" alt="엘리프 마곡 가든스퀘어 업무시설 인테리어 예시" class="feature-image">
+                </div>
+                <div class="card-wrapper">
+                    <div class="card-grid">
+                <div class="info-card border-accent">
+                    <div class="card-header">
+                        <h3>분양 정보</h3>
+                        <span class="tag">실수요동</span>
+                    </div>
+                    <div class="card-body">
+                        <ul class="info-list">
+                            <li>
+                                <strong>대상</strong>
+                                <span>실수요동 (약 600평 규모)</span>
+                            </li>
+                            <li>
+                                <strong>공급가</strong>
+                                <span>평당 1,900만 원 후반대</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="card-header">
+                        <h3>임대 정보</h3>
+                        <span class="tag tag-blue">예상가</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="price-table">
+                                <thead>
+                                    <tr>
+                                        <th>구분</th>
+                                        <th>위치</th>
+                                        <th>임대료 (평당)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>근린생활시설</td>
+                                        <td>지상 1층</td>
+                                        <td><strong>75,000원</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td>업무시설 (상층부)</td>
+                                        <td>지상층</td>
+                                        <td><strong>50,000원</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td>업무지원시설</td>
+                                        <td>지하 1층</td>
+                                        <td><strong>25,000원</strong></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="md-recommendation">
+                            <h4 class="md-title">💡 층별 권장 업종</h4>
+                            <ul class="md-list">
+                                <li><span class="md-floor">지하 1층</span> 구내식당, 운동시설</li>
+                                <li><span class="md-floor">1층 근생</span> 편의점, 스타벅스, 약국, 식음료 <strong>우선접수</strong></li>
+                            </ul>
+                            <div class="md-alert">
+                                <strong>가망 고객이 있으신 분</strong>은 지금 바로 의향서를 접수해 주세요!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="floor-overview" class="section floor-overview-section">
+        <div class="container">
+            <h2 class="section-title">층별 구성 안내</h2>
+            <p class="section-desc">지하 1층부터 지상 10층까지, 비즈니스 목적에 맞춘 다양한 호실이 준비되어 있습니다.</p>
+            
+            <div class="floor-grid">
+                <div class="floor-card">
+                    <div class="floor-badge badge-top">최상층</div>
+                    <div class="floor-header">
+                        <h3>10F</h3>
+                        <span class="floor-type">업무시설</span>
+                    </div>
+                    <div class="floor-body">
+                        <p><strong>1001호 ~ 1015호</strong></p>
+                        <span>총 15개 호실</span>
+                    </div>
+                </div>
+                <div class="floor-card">
+                    <div class="floor-header">
+                        <h3>9F</h3>
+                        <span class="floor-type">업무시설</span>
+                    </div>
+                    <div class="floor-body">
+                        <p><strong>901호 ~ 913호</strong></p>
+                        <span>총 13개 호실</span>
+                    </div>
+                </div>
+                <div class="floor-card">
+                    <div class="floor-header">
+                        <h3>8F</h3>
+                        <span class="floor-type">업무시설</span>
+                    </div>
+                    <div class="floor-body">
+                        <p><strong>801호 ~ 815호</strong></p>
+                        <span>총 15개 호실</span>
+                    </div>
+                </div>
+                <div class="floor-card">
+                    <div class="floor-header">
+                        <h3>7F</h3>
+                        <span class="floor-type">업무시설</span>
+                    </div>
+                    <div class="floor-body">
+                        <p><strong>701호 ~ 714호</strong></p>
+                        <span>총 14개 호실</span>
+                    </div>
+                </div>
+                <div class="floor-card">
+                    <div class="floor-header">
+                        <h3>6F</h3>
+                        <span class="floor-type">업무시설</span>
+                    </div>
+                    <div class="floor-body">
+                        <p><strong>601호 ~ 613호</strong></p>
+                        <span>총 13개 호실</span>
+                    </div>
+                </div>
+                <div class="floor-card">
+                    <div class="floor-header">
+                        <h3>5F</h3>
+                        <span class="floor-type">업무시설</span>
+                    </div>
+                    <div class="floor-body">
+                        <p><strong>501호 ~ 513호</strong></p>
+                        <span>총 13개 호실</span>
+                    </div>
+                </div>
+                <div class="floor-card">
+                    <div class="floor-header">
+                        <h3>4F</h3>
+                        <span class="floor-type">업무시설</span>
+                    </div>
+                    <div class="floor-body">
+                        <p><strong>401호 ~ 413호</strong></p>
+                        <span>총 13개 호실</span>
+                    </div>
+                </div>
+                <div class="floor-card highlight-card">
+                    <div class="floor-badge badge-mid">중층부 대형</div>
+                    <div class="floor-header">
+                        <h3>2F ~ 3F</h3>
+                        <span class="floor-type">업무시설</span>
+                    </div>
+                    <div class="floor-body">
+                        <p><strong>201호 ~ 237호 / 301호 ~ 337호</strong></p>
+                        <span>각 층 37개 호실 (다양한 평형)</span>
+                    </div>
+                </div>
+                <div class="floor-card highlight-card">
+                    <div class="floor-badge badge-retail">상업시설</div>
+                    <div class="floor-header">
+                        <h3>1F</h3>
+                        <span class="floor-type">근린생활시설</span>
+                    </div>
+                    <div class="floor-body">
+                        <p><strong>101호 ~ 122호</strong></p>
+                        <span>총 22개 호실 (편의점, 카페, 약국 등 권장)</span>
+                    </div>
+                </div>
+                <div class="floor-card">
+                    <div class="floor-header">
+                        <h3>B1F</h3>
+                        <span class="floor-type">업무지원시설</span>
+                    </div>
+                    <div class="floor-body">
+                        <p><strong>B101호 ~ B110호</strong></p>
+                        <span>총 10개 호실 (구내식당, 운동시설 등 권장)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="floorplan" class="section floorplan-section bg-light">
+        <div class="container" style="max-width: 1600px;">
+<div class="calculator-layout">
+
     
     <!-- 왼쪽 패널: 층 선택, 도면, 호실 그리드 -->
     <section class="viewer-section">
@@ -323,15 +599,255 @@
 
     </section>
 
-  </main>
+  
+</div>
+</div>
+</section>
 
-  <!-- 꼬리말 -->
-  <footer class="app-footer">
-    <p>&copy; 2026 엘리프 마곡 가든스퀘어. 모든 데이터는 분양 계약 전 홍보관에서 반드시 재확인하시기 바랍니다.</p>
-  </footer>
+    <section id="loi" class="section loi-section">
+        <div class="container">
+            <div class="loi-wrapper">
+                <div class="loi-content">
+                    <h2 class="section-title">입주의향서 접수 안내</h2>
+                    <p class="loi-highlight">현재 입주의향서(LOI) 접수를 진행 중입니다.</p>
+                    <form id="loi-form" class="loi-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="companyName">상호명(법인/개인) <span class="required">*</span></label>
+                                <input type="text" id="companyName" name="companyName" required placeholder="예: (주)엘리프마곡가든스퀘어">
+                            </div>
+                            <div class="form-group">
+                                <label for="managerName">담당자 성명 <span class="required">*</span></label>
+                                <input type="text" id="managerName" name="managerName" required placeholder="예: 홍길동">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="contact">연락처 <span class="required">*</span></label>
+                                <input type="tel" id="contact" name="contact" required placeholder="010-0000-0000">
+                            </div>
+                            <div class="form-group">
+                                <label for="area">희망 면적(평) <span class="required">*</span></label>
+                                <input type="text" id="area" name="area" required placeholder="예: 전용 50평">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="purpose">희망 유형</label>
+                            <select id="purpose" name="purpose">
+                                <option value="분양">분양 (실수요)</option>
+                                <option value="임대">임대 (사무실/상가)</option>
+                            </select>
+                        </div>
+                        <div class="form-group checkbox-group">
+                            <label>
+                                <input type="checkbox" id="privacyAgreement" name="privacyAgreement" required>
+                                개인정보 수집 및 이용에 동의합니다. 
+                            </label>
+                            <span style="font-size: 13px; color: #666; display: block; margin-top: 5px;">
+                                * 수집목적: 상담 및 안내 / 항목: 상호명, 담당자명, 연락처 / 보유기간: 목적 달성 후 즉시 파기
+                            </span>
+                        </div>
+                        <button type="submit" class="btn btn-large btn-gradient full-width">입점의향서 온라인 접수하기</button>
+                        <p class="form-notice">* 제출해 주시면 전문 상담사가 확인 후 안내 전화를 드립니다.</p>
+                    </form>
+                </div>
+                <div class="loi-cta">
+                    <div class="contact-box" style="background: linear-gradient(rgba(15,23,42,0.85), rgba(15,23,42,0.95)), url('loi_bg.jpg') center/cover;">
+                        <span>상담 및 접수 문의</span>
+                        <a href="tel:1666-5984" class="phone-number">1666-5984</a>
+                        <p>전문 상담사가 빠르고 친절하게 안내해 드립니다.</p>
+                        <a href="tel:1666-5984" class="btn btn-large btn-primary full-width">지금 바로 전화하기</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <!-- 스크립트 로드 (데이터 및 비즈니스 로직) -->
-  <script src="data.js"></script>
-  <script src="app.js"></script>
-</body>
+    <section id="location" class="section location-section bg-light">
+        <div class="container">
+            <h2 class="section-title">오시는 길</h2>
+            <p class="section-desc">엘리프 마곡 가든스퀘어 현장 위치를 안내해 드립니다.</p>
+            
+            <div class="map-container">
+                <iframe src="https://maps.google.com/maps?q=서울+강서구+마곡동+783-2&t=&z=16&ie=UTF8&iwloc=&output=embed" width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+            
+            <div class="map-external-links">
+                <a href="https://map.naver.com/v5/search/서울 강서구 마곡동 783-2" target="_blank" class="btn btn-naver">📗 네이버 지도에서 열기</a>
+                <a href="https://map.kakao.com/link/search/서울 강서구 마곡동 783-2" target="_blank" class="btn btn-kakao">💬 카카오맵에서 열기</a>
+            </div>
+            
+            <div class="location-info">
+                <div class="info-item">
+                    <h4>📍 현장 주소</h4>
+                    <p>서울 강서구 마곡동 마곡지구 D18-B 블록</p>
+                </div>
+                <div class="info-item">
+                    <h4>🚘 대중교통</h4>
+                    <p>지하철 5호선 마곡역, 9호선/공항철도 마곡나루역 이용 가능</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">엘리프 마곡 가든스퀘어</div>
+                <div class="footer-info">
+                    <p>
+                        <span>사이트 운영자: 심완준</span> | 
+                        <span>대표번호: 1666-5984 (또는 010-2235-8245)</span>
+                    </p>
+                    <p>
+                        <span>개인정보관리책임자: 심완준 (010-2235-8245)</span>
+                    </p>
+                    <p class="footer-notice">본 사이트는 엘리프 마곡 가든스퀘어 분양 및 임대 안내를 위한 홈페이지입니다.</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 엘리프 마곡 가든스퀘어. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SEO를 위한 시각적 숨김 키워드 영역 -->
+    <div style="position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;" aria-hidden="true">
+        <h2>엘리프 마곡 가든스퀘어 관련 검색어</h2>
+        <p>계룡건설, 마곡 보타닉게이트, 마곡 100평, 마곡 100평 분양, 마곡 100평 임대, 마곡 18블록, 마곡 18B, 마곡 200평 분양, 마곡 200평 임대, 마곡 20평 임대, 마곡 30평 임대, 마곡 40평 임대, 마곡 50평, 마곡 60평 임대, 마곡 70평 임대, 마곡 80평 임대, 마곡 90평 임대, 마곡 LG사이언스파크, 마곡 R&D센터, 마곡게룡건설, 마곡계룡건설, 마곡 공공분양, 마곡 18단지, 마곡 공장, 마곡 분양일정, 마곡 사무실 임대, 마곡 사옥, 마곡 상가분양, 마곡 오피스, 마곡 섹션오피스, 마곡역 사무실, 마곡나루 사무실, 마곡 연구실, 마곡 지식산업센터, 양천향교역 지식산업센터, 증미 마스터벨류, 엘리프 마곡 가든스퀘어, 마곡 200평, 마곡지식산업센터분양, 강서구 지식산업센터, 마곡 아이파크디어반, 마곡 창고</p>
+    </div>
+
+    <script>
+        // Smooth scrolling for nav links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                // Close mobile menu if open
+                const navLinks = document.querySelector('.nav-links');
+                const mobileMenuBtn = document.querySelector('.mobile-menu-toggle');
+                if (navLinks && mobileMenuBtn) {
+                    navLinks.classList.remove('active');
+                    mobileMenuBtn.classList.remove('active');
+                }
+
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Navbar scrolled state
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        
+        if (mobileMenuBtn && navLinks) {
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenuBtn.classList.toggle('active');
+                navLinks.classList.toggle('active');
+            });
+        }
+
+        // 텔레그램 봇 설정
+        const TELEGRAM_BOT_TOKEN = '8762807652:AAHCBmAMo-74Yqpg_3mhjWwFbHzyHeair7o';
+        const TELEGRAM_CHAT_ID = '8699438791';
+
+        // Form submission
+        const loiForm = document.getElementById('loi-form');
+        if(loiForm) {
+            loiForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // 전송 중 상태 표시 및 중복 클릭 방지
+                const submitBtn = loiForm.querySelector('button[type="submit"]');
+                const originalBtnText = submitBtn.innerText;
+                submitBtn.disabled = true;
+                submitBtn.innerText = '전송 중...';
+
+                // 폼 데이터 가져오기
+                const companyName = document.getElementById('companyName').value;
+                const managerName = document.getElementById('managerName').value;
+                const contact = document.getElementById('contact').value;
+                const area = document.getElementById('area').value;
+                const purpose = document.getElementById('purpose').value;
+
+                // 텔레그램으로 보낼 메시지 양식 구성
+                const message = `🏢 [입점의향서 신규 접수 - 엘리프 마곡 가든스퀘어]\n-----------------------------------\n▪️ 상호명: ${companyName}\n▪️ 담당자: ${managerName}\n▪️ 연락처: ${contact}\n▪️ 희망면적: ${area}\n▪️ 희망유형: ${purpose}\n-----------------------------------`;
+
+                // 텔레그램 API 호출
+                const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+                
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        chat_id: TELEGRAM_CHAT_ID,
+                        text: message,
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if(data.ok) {
+                        alert('입점의향서가 성공적으로 접수되었습니다.\n담당자가 확인 후 빠르게 연락드리겠습니다.');
+                        loiForm.reset();
+                    } else {
+                        alert('접수 전송에 실패했습니다. (봇 설정 필요)');
+                        console.error('Telegram API Error:', data);
+                    }
+                })
+                .catch(error => {
+                    alert('네트워크 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+                    console.error('Error:', error);
+                })
+                .finally(() => {
+                    submitBtn.disabled = false;
+                    submitBtn.innerText = originalBtnText;
+                });
+            });
+        }
+        // 도메인에 따른 전화번호 동적 변경 스크립트
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentDomain = window.location.hostname;
+            // .kr 도메인으로 접속했을 때 동작
+            if (currentDomain.includes('레이어드허브.kr') || currentDomain.includes('xn--hy1b43db4g7xi89b487a.kr')) {
+                const targetNumber = '010-8280-8245';
+                
+                // 1. 전화걸기 링크(href) 일괄 변경
+                document.querySelectorAll('a[href^="tel:"]').forEach(link => {
+                    const href = link.getAttribute('href');
+                    if (href.includes('1666-5984') || href.includes('010-2235-8245')) {
+                        link.setAttribute('href', `tel:${targetNumber}`);
+                    }
+                });
+
+                // 2. 화면에 보이는 텍스트(전화번호) 일괄 변경
+                const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
+                let node;
+                while (node = walker.nextNode()) {
+                    let text = node.nodeValue;
+                    if (text.includes('1666-5984') || text.includes('010-2235-8245')) {
+                        node.nodeValue = text.replace(/1666-5984/g, targetNumber).replace(/010-2235-8245/g, targetNumber);
+                    }
+                }
+            }
+        });
+    </script>
+
+    <!-- 면적 및 임대료 계산기 스크립트 로드 -->
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+    </body>
+    
 </html>

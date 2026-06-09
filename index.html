@@ -663,6 +663,35 @@
         </div>
     </section>
 
+    <!-- VIP 관심고객 구독 섹션 -->
+    <section id="vip-subscribe" class="section vip-section" style="padding: 4rem 0; border-top: 1px solid #eee;">
+        <div class="container">
+            <div style="max-width: 600px; margin: 0 auto; text-align: center; background: #fff; padding: 3rem 2rem; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid #e2e8f0;">
+                <h2 style="font-size: 1.8rem; margin-bottom: 1rem; color: #1e293b; font-weight: 700;">👑 VIP 관심고객 등록하기</h2>
+                <p style="color: #64748b; margin-bottom: 2.5rem; line-height: 1.6; font-size: 1.05rem;">
+                    로열층/상가 우선 배정 및 분양가 특별 할인 등<br>핵심 고급 정보를 문자와 카카오톡으로 가장 먼저 받아보세요.
+                </p>
+                <form id="subscribe-form" style="display: flex; flex-direction: column; gap: 1.5rem; text-align: left;">
+                    <div>
+                        <label for="subName" style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #334155;">성함 (또는 상호명) <span style="color: #ef4444;">*</span></label>
+                        <input type="text" id="subName" required placeholder="예: 홍길동" style="width: 100%; padding: 1rem; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 1rem; transition: border-color 0.2s;">
+                    </div>
+                    <div>
+                        <label for="subContact" style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #334155;">연락처 (휴대폰) <span style="color: #ef4444;">*</span></label>
+                        <input type="tel" id="subContact" required placeholder="010-0000-0000" style="width: 100%; padding: 1rem; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 1rem; transition: border-color 0.2s;">
+                    </div>
+                    <div style="margin-top: 0.5rem; padding: 1rem; background: #f8fafc; border-radius: 8px;">
+                        <label style="font-size: 0.95rem; color: #475569; display: flex; align-items: flex-start; gap: 0.75rem; cursor: pointer;">
+                            <input type="checkbox" required style="margin-top: 0.25rem; transform: scale(1.2);"> 
+                            <span style="line-height: 1.4;">VIP 정보 알림 전송을 위한 개인정보 수집 및 이용에 동의합니다. (목적 달성 시 즉시 파기)</span>
+                        </label>
+                    </div>
+                    <button type="submit" class="btn btn-large btn-gradient" style="width: 100%; margin-top: 0.5rem; font-size: 1.15rem; padding: 1.2rem; border-radius: 8px;">VIP 혜택 구독하기</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
     <section id="location" class="section location-section bg-light">
         <div class="container">
             <h2 class="section-title">오시는 길</h2>
@@ -817,6 +846,52 @@
                 });
             });
         }
+
+        // VIP 구독 폼 처리
+        const subscribeForm = document.getElementById('subscribe-form');
+        if(subscribeForm) {
+            subscribeForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const submitBtn = subscribeForm.querySelector('button[type="submit"]');
+                const originalBtnText = submitBtn.innerText;
+                submitBtn.disabled = true;
+                submitBtn.innerText = '등록 중...';
+
+                const subName = document.getElementById('subName').value;
+                const subContact = document.getElementById('subContact').value;
+
+                const message = `🔔 [VIP 관심고객 구독 신규접수]\n-----------------------------------\n▪️ 성함/상호: ${subName}\n▪️ 연락처: ${subContact}\n-----------------------------------\n* 홈페이지 VIP 구독 양식을 통해 접수되었습니다.`;
+
+                const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+                
+                fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        chat_id: TELEGRAM_CHAT_ID,
+                        text: message,
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if(data.ok) {
+                        alert('VIP 관심고객으로 성공적으로 등록되었습니다! 🎉\n새로운 로열층/할인 소식이 있을 때 가장 먼저 카카오톡/문자로 알려드리겠습니다.');
+                        subscribeForm.reset();
+                    } else {
+                        alert('구독 등록에 실패했습니다. 잠시 후 다시 시도해주세요.');
+                    }
+                })
+                .catch(error => {
+                    alert('네트워크 오류가 발생했습니다.');
+                })
+                .finally(() => {
+                    submitBtn.disabled = false;
+                    submitBtn.innerText = originalBtnText;
+                });
+            });
+        }
+
         // 도메인에 따른 전화번호 동적 변경 스크립트
         document.addEventListener('DOMContentLoaded', function() {
             const currentDomain = window.location.hostname;

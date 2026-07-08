@@ -319,6 +319,11 @@ document.addEventListener("DOMContentLoaded", () => {
     // 단가 필드 활성화
     unitPriceInput.disabled = false;
     leaseUnitPriceInput.disabled = false;
+    
+    // 근린생활시설 포함 여부에 따라 placeholder 동적 변경
+    const hasGeunrin = selectedRooms.some(r => r.type === "근린생활시설");
+    leaseUnitPriceInput.placeholder = hasGeunrin ? "70,000" : "50,000";
+    
     btnAddToEstimate.disabled = false;
     
     calculatePrice();
@@ -374,8 +379,14 @@ document.addEventListener("DOMContentLoaded", () => {
       const roomSaleWon = salePricePerPyung * r.contract_pyung * 10000;
       totalSaleWon += roomSaleWon;
       
-      // 2. 임대 가격 계산: 계약면적당 5만원 = 평당 월세 * 해당 호실 계약면적(평)
-      const roomLeaseWon = leasePricePerPyung * r.contract_pyung;
+      // 2. 임대 가격 계산
+      let currentLeasePrice = leasePricePerPyung;
+      // 사용자가 직접 임대단가를 입력하지 않은 경우 기본값 설정: 근린생활시설은 70,000원, 그 외는 50,000원
+      if (!rawLeasePrice && r.type === "근린생활시설") {
+        currentLeasePrice = 70000;
+      }
+      
+      const roomLeaseWon = currentLeasePrice * r.contract_pyung;
       totalLeaseWon += roomLeaseWon;
     });
     
@@ -438,7 +449,7 @@ document.addEventListener("DOMContentLoaded", () => {
     unitPriceInput.disabled = true;
     
     // 임대료 입력창 초기화 및 비활성화
-    leaseUnitPriceInput.value = "50,000";
+    leaseUnitPriceInput.value = "";
     leaseUnitPriceInput.disabled = true;
     
     amtContract.textContent = "0 원";

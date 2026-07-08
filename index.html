@@ -116,6 +116,22 @@
         </div>
     </section>
 
+    <section id="promo" class="section promo-section bg-light">
+        <div class="container">
+            <h2 class="section-title">가든스퀘어 안내</h2>
+            <p class="section-desc">엘리프 마곡 가든스퀘어의 상세 안내 리플렛 및 전단입니다.</p>
+            <div class="promo-slider-container" style="position: relative; max-width: 900px; margin: 2rem auto 0; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+                <div class="promo-slider-wrapper" id="promoSlider">
+                    <img src="0629_엘리프 마곡 가든 스퀘어_전단 (2)_1.png" alt="가든스퀘어 전단 1" class="promo-slide">
+                    <img src="0629_엘리프 마곡 가든 스퀘어_전단 (2)_2.png" alt="가든스퀘어 전단 2" class="promo-slide">
+                </div>
+                <button class="promo-slider-btn prev" aria-label="이전 이미지">&#10094;</button>
+                <button class="promo-slider-btn next" aria-label="다음 이미지">&#10095;</button>
+            </div>
+        </div>
+    </section>
+
+
     <section id="schedule" class="section schedule-section">
         <div class="container">
             <h2 class="section-title">사업 추진 일정 <span>(예정)</span></h2>
@@ -161,7 +177,7 @@
 
             <div class="price-layout">
                 <div class="price-image-wrapper">
-                    <img src="office1.jpg" alt="엘리프 마곡 가든스퀘어 업무시설 인테리어 예시" class="feature-image">
+                    <img src="엘리프 싸이드 베너.png" alt="엘리프 마곡 가든스퀘어 사이드 배너" class="feature-image">
                 </div>
                 <div class="card-wrapper">
                     <div class="card-grid">
@@ -940,9 +956,9 @@
         // 도메인에 따른 전화번호 동적 변경 스크립트
         document.addEventListener('DOMContentLoaded', function() {
             const currentDomain = window.location.hostname;
-            // .kr 도메인으로 접속했을 때 동작
-            if (currentDomain.includes('레이어드허브.kr') || currentDomain.includes('xn--hy1b43db4g7xi89b487a.kr')) {
-                const targetNumber = '010-8280-8245';
+            // 레이어드 허브 도메인으로 접속했을 때 동작 (.com, .kr 모두 포함)
+            if (currentDomain.includes('레이어드허브') || currentDomain.includes('xn--hy1b43db4g7xi89b487a')) {
+                const targetNumber = '010-3275-4143';
                 
                 // 1. 전화걸기 링크(href) 일괄 변경
                 document.querySelectorAll('a[href^="tel:"]').forEach(link => {

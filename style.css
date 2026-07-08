@@ -2326,3 +2326,53 @@ body {
     font-size: 10pt !important;
   }
 }
+
+/* 프로모션 슬라이더 스타일 */
+.promo-slider-container {
+    position: relative;
+    width: 100%;
+}
+.promo-slider-wrapper {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Firefox */
+}
+.promo-slider-wrapper::-webkit-scrollbar {
+    display: none; /* Chrome, Safari */
+}
+.promo-slide {
+    flex: 0 0 100%;
+    scroll-snap-align: center;
+    width: 100%;
+    object-fit: contain;
+}
+.promo-slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.4);
+    color: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s;
+}
+.promo-slider-btn:hover {
+    background: rgba(0, 0, 0, 0.7);
+}
+.promo-slider-btn.prev {
+    left: 10px;
+}
+.promo-slider-btn.next {
+    right: 10px;
+}

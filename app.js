@@ -320,9 +320,14 @@ document.addEventListener("DOMContentLoaded", () => {
     unitPriceInput.disabled = false;
     leaseUnitPriceInput.disabled = false;
     
-    // 근린생활시설 포함 여부에 따라 placeholder 동적 변경
-    const hasGeunrin = selectedRooms.some(r => r.type === "근린생활시설");
-    leaseUnitPriceInput.placeholder = hasGeunrin ? "70,000" : "50,000";
+    // 조건에 따라 placeholder 동적 변경 (근린생활시설: 70,000 / 지하(B로 시작): 25,000 / 그 외: 50,000)
+    let defaultPlaceholder = "50,000";
+    if (selectedRooms.some(r => r.type === "근린생활시설")) {
+      defaultPlaceholder = "70,000";
+    } else if (selectedRooms.some(r => r.room.startsWith("B"))) {
+      defaultPlaceholder = "25,000";
+    }
+    leaseUnitPriceInput.placeholder = defaultPlaceholder;
     
     btnAddToEstimate.disabled = false;
     
@@ -381,9 +386,15 @@ document.addEventListener("DOMContentLoaded", () => {
       
       // 2. 임대 가격 계산
       let currentLeasePrice = leasePricePerPyung;
-      // 사용자가 직접 임대단가를 입력하지 않은 경우 기본값 설정: 근린생활시설은 70,000원, 그 외는 50,000원
-      if (!rawLeasePrice && r.type === "근린생활시설") {
-        currentLeasePrice = 70000;
+      // 사용자가 직접 임대단가를 입력하지 않은 경우 기본값 설정
+      if (!rawLeasePrice) {
+        if (r.type === "근린생활시설") {
+          currentLeasePrice = 70000;
+        } else if (r.room.startsWith("B")) {
+          currentLeasePrice = 25000;
+        } else {
+          currentLeasePrice = 50000;
+        }
       }
       
       const roomLeaseWon = currentLeasePrice * r.contract_pyung;
@@ -771,5 +782,19 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     
     return eok > 0 || man > 0 ? `${result}원` : `${won.toLocaleString()}원`;
+  }
+
+  // --- 프로모션 슬라이더 로직 ---
+  const promoSlider = document.getElementById("promoSlider");
+  const promoPrev = document.querySelector(".promo-slider-btn.prev");
+  const promoNext = document.querySelector(".promo-slider-btn.next");
+
+  if (promoSlider && promoPrev && promoNext) {
+    promoPrev.addEventListener("click", () => {
+      promoSlider.scrollBy({ left: -promoSlider.clientWidth, behavior: "smooth" });
+    });
+    promoNext.addEventListener("click", () => {
+      promoSlider.scrollBy({ left: promoSlider.clientWidth, behavior: "smooth" });
+    });
   }
 });

@@ -637,7 +637,7 @@ h1, h2, h3, h4 {
 .floorplan-map {
     position: relative;
     width: 100%;
-    padding-bottom: 75%; /* 4:3 ºñÀ² */
+    padding-bottom: 75%; /* 4:3 ë¹„ìœ¨ */
 }
 
 .building-outline {
@@ -650,7 +650,7 @@ h1, h2, h3, h4 {
 
 .unit-block {
     position: absolute;
-    background-color: rgba(249, 115, 22, 0.7); /* ÁÖÈ²»ö ¹İÅõ¸í */
+    background-color: rgba(249, 115, 22, 0.7); /* ì£¼í™©ìƒ‰ ë°˜íˆ¬ëª… */
     border: 2px solid #ea580c;
     display: flex;
     align-items: center;
@@ -675,7 +675,7 @@ h1, h2, h3, h4 {
     padding: 0.2rem 0.5rem;
 }
 
-/* ½ÇÁ¦ µµ¸éÀÇ À§Ä¡ ºñÀ²¿¡ ´ë·«ÀûÀ¸·Î ¸ÂÃã */
+/* ì‹¤ì œ ë„ë©´ì˜ ìœ„ì¹˜ ë¹„ìœ¨ì— ëŒ€ëµì ìœ¼ë¡œ ë§ì¶¤ */
 .block-101-111 {
     bottom: 5%; left: 5%; width: 45%; height: 22%;
 }
@@ -1280,15 +1280,15 @@ h1, h2, h3, h4 {
    BLUEPRINT CALCULATOR STYLES
    ========================================================================== */
 
-/* ¿¤¸®ÇÁ ¸¶°î °¡µç½ºÄù¾î Àü¿ë/ºĞ¾ç¸éÀû °è»ê±â ÇÁ¸®¹Ì¾ö ½ºÅ¸ÀÏ */
+/* ì—˜ë¦¬í”„ ë§ˆê³¡ ê°€ë“ ìŠ¤í€˜ì–´ ì „ìš©/ë¶„ì–‘ë©´ì  ê³„ì‚°ê¸° í”„ë¦¬ë¯¸ì—„ ìŠ¤íƒ€ì¼ */
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Outfit:wght@300;400;500;600;700&display=swap');
 
-/* Å×¸¶ º¯¼ö ¼±¾ğ */
+/* í…Œë§ˆ ë³€ìˆ˜ ì„ ì–¸ */
 :root {
   --font-ko: 'Noto Sans KR', sans-serif;
   --font-en: 'Outfit', sans-serif;
 
-  /* HSL ÇÁ¸®¹Ì¾ö ÄÃ·¯ ½ºÅ°¸¶ (±âº» ¶óÀÌÆ® ¸ğµå) */
+  /* HSL í”„ë¦¬ë¯¸ì—„ ì»¬ëŸ¬ ìŠ¤í‚¤ë§ˆ (ê¸°ë³¸ ë¼ì´íŠ¸ ëª¨ë“œ) */
   --bg-primary: #f8fafc;
   --bg-secondary: #ffffff;
   --bg-card: rgba(255, 255, 255, 0.7);
@@ -1297,7 +1297,7 @@ h1, h2, h3, h4 {
   --text-secondary: #475569;
   --text-muted: #94a3b8;
   
-  --brand-gold: #c29f53; /* ÇÁ¸®¹Ì¾ö °ñµå Å×¸¶ */
+  --brand-gold: #c29f53; /* í”„ë¦¬ë¯¸ì—„ ê³¨ë“œ í…Œë§ˆ */
   --brand-gold-hover: #b08d41;
   --brand-gold-light: rgba(194, 159, 83, 0.1);
   --brand-gold-border: rgba(194, 159, 83, 0.3);
@@ -1316,7 +1316,7 @@ h1, h2, h3, h4 {
 }
 
 [data-theme="dark"] {
-  /* ´ÙÅ© ¸ğµå º¯¼ö */
+  /* ë‹¤í¬ ëª¨ë“œ ë³€ìˆ˜ */
   --bg-primary: #0b0f19;
   --bg-secondary: #111827;
   --bg-card: rgba(17, 24, 39, 0.7);
@@ -1338,7 +1338,7 @@ h1, h2, h3, h4 {
   --glass-border: rgba(255, 255, 255, 0.05);
 }
 
-/* ±âº» ½ºÅ¸ÀÏÈ­ */
+/* ê¸°ë³¸ ìŠ¤íƒ€ì¼í™” */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -1356,7 +1356,7 @@ body {
   transition: background-color 0.5s ease, color 0.3s ease;
 }
 
-/* ½ºÅ©·Ñ¹Ù Ä¿½ºÅÍ¸¶ÀÌÂ¡ */
+/* ìŠ¤í¬ë¡¤ë°” ì»¤ìŠ¤í„°ë§ˆì´ì§• */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -1372,7 +1372,7 @@ body {
   background: var(--brand-gold);
 }
 
-/* ·¹ÀÌ¾Æ¿ô & ÄÁÅ×ÀÌ³Ê */
+/* ë ˆì´ì•„ì›ƒ & ì»¨í…Œì´ë„ˆ */
 .app-header {
   display: flex;
   justify-content: space-between;
@@ -1418,7 +1418,7 @@ body {
   gap: 1rem;
 }
 
-/* ¹öÆ° ¹× Á¦¾î ¿ä¼Ò */
+/* ë²„íŠ¼ ë° ì œì–´ ìš”ì†Œ */
 .btn-theme-toggle {
   background: transparent;
   border: 1px solid var(--border-color);
@@ -1438,7 +1438,7 @@ body {
   background-color: var(--brand-gold-light);
 }
 
-/* ´ëÇ¥¹®ÀÇ ÀüÈ­¹øÈ£ ½ºÅ¸ÀÏ */
+/* ëŒ€í‘œë¬¸ì˜ ì „í™”ë²ˆí˜¸ ìŠ¤íƒ€ì¼ */
 .header-phone {
   display: flex;
   align-items: center;
@@ -1485,7 +1485,7 @@ body {
 
 .calculator-layout {
   display: grid;
-  grid-template-columns: 1fr 500px; /* °è»ê±â ¿µ¿ª 500px·Î ¼ÒÆø È®´ë */
+  grid-template-columns: 1fr 500px; /* ê³„ì‚°ê¸° ì˜ì—­ 500pxë¡œ ì†Œí­ í™•ëŒ€ */
   gap: 2rem;
   max-width: 1800px;
   width: 100%;
@@ -1500,14 +1500,14 @@ body {
   }
 }
 
-/* ¿ŞÂÊ ÆĞ³Î: Ãş ¼±ÅÃ ¹× µµ¸é ºä¾î */
+/* ì™¼ìª½ íŒ¨ë„: ì¸µ ì„ íƒ ë° ë„ë©´ ë·°ì–´ */
 .viewer-section {
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
 }
 
-/* Ãş¼ö ÅÇ ½½¶óÀÌ´õ */
+/* ì¸µìˆ˜ íƒ­ ìŠ¬ë¼ì´ë” */
 .floor-selector {
   display: flex;
   gap: 0.5rem;
@@ -1544,7 +1544,7 @@ body {
   box-shadow: 0 4px 12px rgba(194, 159, 83, 0.3);
 }
 
-/* Ãşº° ÀüÃ¼ ÇÕ°è ¿ä¾à¹Ù */
+/* ì¸µë³„ ì „ì²´ í•©ê³„ ìš”ì•½ë°” */
 .floor-summary-bar {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -1583,7 +1583,7 @@ body {
   font-family: var(--font-en);
 }
 
-/* µµ¸é ÀÌ¹ÌÁö Ä«µå */
+/* ë„ë©´ ì´ë¯¸ì§€ ì¹´ë“œ */
 .blueprint-card {
   background: var(--bg-secondary);
   border-radius: 16px;
@@ -1643,7 +1643,7 @@ body {
   background-color: var(--brand-gold-light);
 }
 
-/* ÁÜ ¹× µå·¡±× µµ¸é ¿µ¿ª */
+/* ì¤Œ ë° ë“œë˜ê·¸ ë„ë©´ ì˜ì—­ */
 .blueprint-viewer {
   position: relative;
   width: 100%;
@@ -1676,7 +1676,7 @@ body {
   transform-origin: center center;
 }
 
-/* È£½Ç ±×¸®µå ¸ñ·Ï */
+/* í˜¸ì‹¤ ê·¸ë¦¬ë“œ ëª©ë¡ */
 .room-grid-card {
   background: var(--bg-secondary);
   border-radius: 16px;
@@ -1727,14 +1727,14 @@ body {
   box-shadow: inset 0 0 0 1px var(--brand-gold);
 }
 
-/* ¿À¸¥ÂÊ ÆĞ³Î: °è»ê±â & °ßÀû¼­ */
+/* ì˜¤ë¥¸ìª½ íŒ¨ë„: ê³„ì‚°ê¸° & ê²¬ì ì„œ */
 .control-section {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
 }
 
-/* ±Û·¡½º¸ğÇÇÁò °è»ê±â Ä«µå */
+/* ê¸€ë˜ìŠ¤ëª¨í”¼ì¦˜ ê³„ì‚°ê¸° ì¹´ë“œ */
 .calculator-card {
   background: var(--bg-secondary);
   border-radius: 16px;
@@ -1764,7 +1764,7 @@ body {
   align-items: center;
 }
 
-/* ´ÜÀ§ ½ºÀ§Ä¡ */
+/* ë‹¨ìœ„ ìŠ¤ìœ„ì¹˜ */
 .unit-switch {
   display: flex;
   background: var(--bg-primary);
@@ -1791,7 +1791,7 @@ body {
   box-shadow: var(--shadow-sm);
 }
 
-/* ¸ŞÀÎ Á¤º¸ ±×¸®µå */
+/* ë©”ì¸ ì •ë³´ ê·¸ë¦¬ë“œ */
 .info-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -1830,7 +1830,7 @@ body {
   margin-left: 0.2rem;
 }
 
-/* ´Ü°¡ ÀÔ·Â ±×·ì */
+/* ë‹¨ê°€ ì…ë ¥ ê·¸ë£¹ */
 .input-group {
   display: flex;
   flex-direction: column;
@@ -1883,7 +1883,7 @@ body {
   color: var(--text-muted);
 }
 
-/* »ó¼¼ ³³ºÎ ÀÏÁ¤ ½Ã¹Ä·¹ÀÌ¼Ç */
+/* ìƒì„¸ ë‚©ë¶€ ì¼ì • ì‹œë®¬ë ˆì´ì…˜ */
 .schedule-section {
   border-top: 1px solid var(--border-color);
   padding-top: 1.25rem;
@@ -1936,7 +1936,7 @@ body {
   font-size: 1.2rem;
 }
 
-/* ¹öÆ° ·¹ÀÌ¾Æ¿ô */
+/* ë²„íŠ¼ ë ˆì´ì•„ì›ƒ */
 .btn-action-group {
   display: flex;
   gap: 0.75rem;
@@ -1991,7 +1991,7 @@ body {
   background-color: var(--brand-gold-light);
 }
 
-/* °ü½É È£½Ç °ßÀû¼­ */
+/* ê´€ì‹¬ í˜¸ì‹¤ ê²¬ì ì„œ */
 .comparison-card {
   background: var(--bg-secondary);
   border-radius: 16px;
@@ -2089,7 +2089,7 @@ body {
   font-size: 1.25rem;
 }
 
-/* ÀúÀÛ±Ç ¹× ²¿¸®¸» */
+/* ì €ì‘ê¶Œ ë° ê¼¬ë¦¬ë§ */
 .app-footer {
   text-align: center;
   padding: 2rem;
@@ -2099,7 +2099,7 @@ body {
   background: var(--bg-secondary);
 }
 
-/* °ßÀû Â÷¼ö ¼±ÅÃ ÅÇ */
+/* ê²¬ì  ì°¨ìˆ˜ ì„ íƒ íƒ­ */
 .estimate-tabs {
   display: flex;
   background: var(--bg-primary);
@@ -2135,7 +2135,7 @@ body {
   box-shadow: 0 4px 10px rgba(194, 159, 83, 0.2);
 }
 
-/* ºñ±³ ´ë½Ãº¸µå Ä«µå */
+/* ë¹„êµ ëŒ€ì‹œë³´ë“œ ì¹´ë“œ */
 .comparison-card {
   background: var(--bg-secondary);
   border-radius: 16px;
@@ -2177,7 +2177,7 @@ body {
   font-weight: 500;
 }
 
-/* ºñ±³ Å×ÀÌºí Ç×¸ñ ÄÃ·³ ¹× °­Á¶ */
+/* ë¹„êµ í…Œì´ë¸” í•­ëª© ì»¬ëŸ¼ ë° ê°•ì¡° */
 .comparison-table td:first-child,
 .comparison-table th:first-child {
   text-align: left;
@@ -2203,7 +2203,7 @@ body {
   color: var(--brand-gold);
 }
 
-/* ÀÎ¼â ¹× ÇÁ¸°ÅÍ ½ºÅ¸ÀÏ Á¤ÀÇ */
+/* ì¸ì‡„ ë° í”„ë¦°í„° ìŠ¤íƒ€ì¼ ì •ì˜ */
 @media print {
   @page {
     size: A4;
@@ -2217,13 +2217,13 @@ body {
     line-height: 1.3 !important;
   }
   
-  /* ºÒÇÊ¿äÇÑ UI ¼û±è */
+  /* ë¶ˆí•„ìš”í•œ UI ìˆ¨ê¹€ */
   .app-header, 
   .floor-selector,
   .floor-summary-bar,
   .blueprint-card, 
   .room-grid-card,
-  .calculator-card, /* °è»ê±â ¼û±è */
+  .calculator-card, /* ê³„ì‚°ê¸° ìˆ¨ê¹€ */
   .btn-action-group,
   .btn-theme-toggle,
   .app-footer,
@@ -2241,7 +2241,7 @@ body {
     width: 100% !important;
   }
   
-  /* °ßÀû¼­¿Í ºñ±³Ç¥¸¦ °¡·Î 2¿­·Î ³ª¶õÈ÷ ¹èÄ¡ÇÏ¿© A4 1Àå¿¡ ÄÄÆÑÆ®ÇÏ°Ô ¸ÂÃã */
+  /* ê²¬ì ì„œì™€ ë¹„êµí‘œë¥¼ ê°€ë¡œ 2ì—´ë¡œ ë‚˜ë€íˆ ë°°ì¹˜í•˜ì—¬ A4 1ì¥ì— ì»´íŒ©íŠ¸í•˜ê²Œ ë§ì¶¤ */
   .control-section {
     display: grid !important;
     grid-template-columns: 1.1fr 0.9fr !important;
@@ -2267,7 +2267,7 @@ body {
     padding-bottom: 0.2rem !important;
   }
   
-  /* ºñ±³Ç¥ ÀÎ¼â ½ºÅ¸ÀÏ Á¶Á¤ */
+  /* ë¹„êµí‘œ ì¸ì‡„ ìŠ¤íƒ€ì¼ ì¡°ì • */
   .comparison-table th, 
   .comparison-table td {
     padding: 0.4rem 0.2rem !important;
@@ -2287,7 +2287,7 @@ body {
     color: #000 !important;
   }
   
-  /* °ßÀû ¸®½ºÆ® Ãâ·Â °¡µ¶¼º °³¼± */
+  /* ê²¬ì  ë¦¬ìŠ¤íŠ¸ ì¶œë ¥ ê°€ë…ì„± ê°œì„  */
   .estimate-list {
     max-height: none !important;
     margin-bottom: 0.5rem !important;
@@ -2327,7 +2327,7 @@ body {
   }
 }
 
-/* ÇÁ·Î¸ğ¼Ç ½½¶óÀÌ´õ ½ºÅ¸ÀÏ */
+/* í”„ë¡œëª¨ì…˜ ìŠ¬ë¼ì´ë” ìŠ¤íƒ€ì¼ */
 .promo-slider-container {
     position: relative;
     width: 100%;
@@ -2382,7 +2382,7 @@ body {
 
 
 @media print {
-  header, footer, .hero, #promo, #schedule, #price, #floor-overview { display: none !important; }
+  header, footer, .hero, #promo, #schedule, #price, #floor-overview, #loi, #vip-subscribe, #location { display: none !important; }
   .viewer-section { display: none !important; }
   .calculator-card, .estimate-card { display: none !important; }
   .comparison-card { display: block !important; width: 100% !important; margin: 0 !important; border: none !important; box-shadow: none !important; }

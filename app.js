@@ -505,7 +505,19 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       
       const roomSaleWon = salePricePerPyung * roomObj.contract_pyung * 10000;
-      const roomLeaseWon = leasePricePerPyung * roomObj.contract_pyung;
+      
+      let currentLeasePrice = leasePricePerPyung;
+      if (!rawLeasePrice) {
+        if (roomObj.type === "근린생활시설") {
+          currentLeasePrice = 70000;
+        } else if (roomObj.room.startsWith("B")) {
+          currentLeasePrice = 25000;
+        } else {
+          currentLeasePrice = 50000;
+        }
+      }
+      
+      const roomLeaseWon = currentLeasePrice * roomObj.contract_pyung;
       
       const estimateItem = {
         id: `${Date.now()}-${roomObj.room}`,
@@ -518,7 +530,7 @@ document.addEventListener("DOMContentLoaded", () => {
         contract_pyung: roomObj.contract_pyung,
         unitPrice: salePricePerPyung,
         totalPrice: roomSaleWon,
-        leaseUnitPrice: leasePricePerPyung,
+        leaseUnitPrice: currentLeasePrice,
         leasePrice: roomLeaseWon
       };
       

@@ -450,6 +450,34 @@
           <!-- JS에서 동적 렌더링 -->
         </div>
       </article>
+      
+      <!-- VIP 관심고객 구독 섹션 (왼쪽 패널 하단으로 이동) -->
+      <article id="vip-subscribe" class="vip-card" style="margin-top: 1.5rem;">
+        <div style="max-width: 600px; margin: 0 auto; text-align: center; background: #fff; padding: 3rem 2rem; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid #e2e8f0;">
+            <h2 style="font-size: 1.8rem; margin-bottom: 1rem; color: #1e293b; font-weight: 700;">👑 VIP 관심고객 등록하기</h2>
+            <p style="color: #64748b; margin-bottom: 2.5rem; line-height: 1.6; font-size: 1.05rem;">
+                로열층/상가 우선 배정 및 분양가 특별 할인 등<br>핵심 고급 정보를 문자와 카카오톡으로 가장 먼저 받아보세요.
+            </p>
+            <form id="subscribe-form" style="display: flex; flex-direction: column; gap: 1.5rem; text-align: left;">
+                <div>
+                    <label for="subName" style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #334155;">성함 (또는 상호명) <span style="color: #ef4444;">*</span></label>
+                    <input type="text" id="subName" required placeholder="예: 홍길동" style="width: 100%; padding: 1rem; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 1rem; transition: border-color 0.2s;">
+                </div>
+                <div>
+                    <label for="subContact" style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #334155;">연락처 (휴대폰) <span style="color: #ef4444;">*</span></label>
+                    <input type="tel" id="subContact" required placeholder="010-0000-0000" style="width: 100%; padding: 1rem; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 1rem; transition: border-color 0.2s;">
+                </div>
+                <div style="margin-top: 0.5rem; padding: 1rem; background: #f8fafc; border-radius: 8px;">
+                    <label style="font-size: 0.95rem; color: #475569; display: flex; align-items: flex-start; gap: 0.75rem; cursor: pointer;">
+                        <input type="checkbox" required style="margin-top: 0.25rem; transform: scale(1.2);"> 
+                        <span style="line-height: 1.4;">VIP 정보 알림 전송을 위한 개인정보 수집 및 이용에 동의합니다. (목적 달성 시 즉시 파기)</span>
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-large btn-gradient" style="width: 100%; margin-top: 0.5rem; font-size: 1.15rem; padding: 1.2rem; border-radius: 8px;">VIP 혜택 구독하기</button>
+            </form>
+        </div>
+      </article>
+
       </div>
 
     </section>
@@ -737,34 +765,6 @@
         </div>
     </section>
 
-    <!-- VIP 관심고객 구독 섹션 -->
-    <section id="vip-subscribe" class="section vip-section" style="padding: 4rem 0; border-top: 1px solid #eee;">
-        <div class="container">
-            <div style="max-width: 600px; margin: 0 auto; text-align: center; background: #fff; padding: 3rem 2rem; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid #e2e8f0;">
-                <h2 style="font-size: 1.8rem; margin-bottom: 1rem; color: #1e293b; font-weight: 700;">👑 VIP 관심고객 등록하기</h2>
-                <p style="color: #64748b; margin-bottom: 2.5rem; line-height: 1.6; font-size: 1.05rem;">
-                    로열층/상가 우선 배정 및 분양가 특별 할인 등<br>핵심 고급 정보를 문자와 카카오톡으로 가장 먼저 받아보세요.
-                </p>
-                <form id="subscribe-form" style="display: flex; flex-direction: column; gap: 1.5rem; text-align: left;">
-                    <div>
-                        <label for="subName" style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #334155;">성함 (또는 상호명) <span style="color: #ef4444;">*</span></label>
-                        <input type="text" id="subName" required placeholder="예: 홍길동" style="width: 100%; padding: 1rem; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 1rem; transition: border-color 0.2s;">
-                    </div>
-                    <div>
-                        <label for="subContact" style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #334155;">연락처 (휴대폰) <span style="color: #ef4444;">*</span></label>
-                        <input type="tel" id="subContact" required placeholder="010-0000-0000" style="width: 100%; padding: 1rem; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 1rem; transition: border-color 0.2s;">
-                    </div>
-                    <div style="margin-top: 0.5rem; padding: 1rem; background: #f8fafc; border-radius: 8px;">
-                        <label style="font-size: 0.95rem; color: #475569; display: flex; align-items: flex-start; gap: 0.75rem; cursor: pointer;">
-                            <input type="checkbox" required style="margin-top: 0.25rem; transform: scale(1.2);"> 
-                            <span style="line-height: 1.4;">VIP 정보 알림 전송을 위한 개인정보 수집 및 이용에 동의합니다. (목적 달성 시 즉시 파기)</span>
-                        </label>
-                    </div>
-                    <button type="submit" class="btn btn-large btn-gradient" style="width: 100%; margin-top: 0.5rem; font-size: 1.15rem; padding: 1.2rem; border-radius: 8px;">VIP 혜택 구독하기</button>
-                </form>
-            </div>
-        </div>
-    </section>
 
     <section id="location" class="section location-section bg-light">
         <div class="container">

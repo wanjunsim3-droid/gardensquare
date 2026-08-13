@@ -1503,20 +1503,48 @@ body {
 /* 왼쪽 패널: 층 선택 및 도면 뷰어 */
 .viewer-section {
   display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  gap: 1.25rem;
+}
+
+@media (max-width: 992px) {
+  .viewer-section {
+    flex-direction: column;
+  }
+}
+
+.viewer-content-col {
+  display: flex;
   flex-direction: column;
   gap: 1.25rem;
+  flex: 1;
+  min-width: 0;
 }
 
 /* 층수 탭 슬라이더 */
 .floor-selector {
   display: flex;
+  flex-direction: column;
   gap: 0.5rem;
-  overflow-x: auto;
-  padding: 0.5rem 0.25rem;
+  overflow-y: auto;
+  max-height: 700px;
+  min-width: 80px;
+  padding: 0.5rem;
   background: var(--bg-secondary);
   border-radius: 12px;
   border: 1px solid var(--border-color);
   box-shadow: var(--shadow-sm);
+}
+
+@media (max-width: 992px) {
+  .floor-selector {
+    flex-direction: row;
+    overflow-x: auto;
+    overflow-y: hidden;
+    max-height: none;
+    min-width: 0;
+  }
 }
 
 .floor-tab {

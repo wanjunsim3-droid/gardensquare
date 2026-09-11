@@ -1232,7 +1232,13 @@ const ELIF_DATA = {
       "exclusive_m2": 150.74,
       "exclusive_pyung": 45.6,
       "contract_m2": 319.02,
-      "contract_pyung": 96.5
+      "contract_pyung": 96.5,
+      "supply_price": 1804600000,
+      "vat": 99253000,
+      "total_price": 1903853000,
+      "deposit_10": 190385300,
+      "balance_90": 1713467700,
+      "is_sale_only": true
     },
     {
       "room": "417",
@@ -1980,7 +1986,13 @@ const ELIF_DATA = {
       "exclusive_m2": 760.13,
       "exclusive_pyung": 229.94,
       "contract_m2": 1608.65,
-      "contract_pyung": 486.62
+      "contract_pyung": 486.62,
+      "supply_price": 9099700000,
+      "vat": 500483500,
+      "total_price": 9600183500,
+      "deposit_10": 960018350,
+      "balance_90": 8640165150,
+      "is_sale_only": true
     },
     {
       "room": "1017",
@@ -1988,7 +2000,13 @@ const ELIF_DATA = {
       "exclusive_m2": 555.31,
       "exclusive_pyung": 167.98,
       "contract_m2": 1175.21,
-      "contract_pyung": 355.5
+      "contract_pyung": 355.5,
+      "supply_price": 6647900000,
+      "vat": 365634500,
+      "total_price": 7013534500,
+      "deposit_10": 701353450,
+      "balance_90": 6312181050,
+      "is_sale_only": true
     }
   ]
 };

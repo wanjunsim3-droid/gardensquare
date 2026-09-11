@@ -236,7 +236,12 @@ document.addEventListener("DOMContentLoaded", () => {
     rooms.forEach(roomObj => {
       const btn = document.createElement("button");
       btn.className = "room-btn";
-      btn.textContent = roomObj.room;
+      if (roomObj.is_sale_only || (roomObj.type && roomObj.type.includes('일반분양'))) {
+        btn.innerHTML = `${roomObj.room} <span style="font-size:0.7em; background:#e11d48; color:#fff; padding:1px 4px; border-radius:3px; vertical-align:middle; font-weight:bold;">분양</span>`;
+        btn.style.borderColor = "#e11d48";
+      } else {
+        btn.textContent = roomObj.room;
+      }
       btn.dataset.room = roomObj.room;
       
       btn.addEventListener("click", () => {
@@ -378,17 +383,24 @@ document.addEventListener("DOMContentLoaded", () => {
     
     let totalSaleWon = 0;
     let totalLeaseWon = 0;
+    let hasSaleOnlyRoom = false;
     
     selectedRooms.forEach(r => {
-      // 1. 분양가 계산: 평당 분양가 * 해당 호실 계약면적(평) * 10,000원
-      const roomSaleWon = salePricePerPyung * r.contract_pyung * 10000;
+      // 1. 분양가 계산: 지정 확정 분양가가 있는 호실의 경우 우선 적용 (사용자가 단가 미입력 시)
+      let roomSaleWon = 0;
+      if (!rawSalePrice && r.total_price) {
+        roomSaleWon = r.total_price;
+        hasSaleOnlyRoom = true;
+      } else {
+        roomSaleWon = salePricePerPyung * r.contract_pyung * 10000;
+      }
       totalSaleWon += roomSaleWon;
       
       // 2. 임대 가격 계산
       let currentLeasePrice = leasePricePerPyung;
       // 사용자가 직접 임대단가를 입력하지 않은 경우 기본값 설정
       if (!rawLeasePrice) {
-        if (r.type === "근린생활시설") {
+        if (r.type === "근린생활시설" || (r.type && r.type.includes("근생"))) {
           currentLeasePrice = 70000;
         } else if (r.room.startsWith("B")) {
           currentLeasePrice = 25000;
@@ -401,13 +413,13 @@ document.addEventListener("DOMContentLoaded", () => {
       totalLeaseWon += roomLeaseWon;
     });
     
-    // 분양 자금 계획
+    // 분양 자금 계획 (계약금 10%, 잔금 90%)
     const contractWon = totalSaleWon * 0.1;
-    const middleWon = totalSaleWon * 0.5;
-    const remainWon = totalSaleWon * 0.4;
+    const middleWon = hasSaleOnlyRoom ? 0 : totalSaleWon * 0.5;
+    const remainWon = hasSaleOnlyRoom ? totalSaleWon * 0.9 : totalSaleWon * 0.4;
     
     amtContract.textContent = formatKoreanPrice(contractWon);
-    amtMiddle.textContent = formatKoreanPrice(middleWon);
+    amtMiddle.textContent = hasSaleOnlyRoom ? "0 원 (중도금 없음)" : formatKoreanPrice(middleWon);
     amtRemain.textContent = formatKoreanPrice(remainWon);
     amtTotal.textContent = formatKoreanPrice(totalSaleWon);
     

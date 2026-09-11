@@ -115,7 +115,9 @@ document.addEventListener("DOMContentLoaded", () => {
     btnMemberLogout.addEventListener("click", () => {
       localStorage.removeItem("elif_member_user");
       checkMemberAuth();
-      alert("로그아웃되었습니다. 견적서 확인을 원하시면 다시 간편 등록해 주세요.");
+      document.querySelectorAll(".room-btn").forEach(b => b.classList.remove("selected"));
+      resetCalculatorUI();
+      alert("로그아웃되었습니다. 호실 선택 및 견적서 이용을 원하시면 다시 간편 등록해 주세요.");
     });
   }
 
@@ -291,6 +293,12 @@ document.addEventListener("DOMContentLoaded", () => {
       btn.dataset.room = roomObj.room;
       
       btn.addEventListener("click", () => {
+        if (!isMemberLoggedIn()) {
+          alert("호실 선택 및 실시간 분양가/임대료 확인은 간편 무료 회원(VIP) 전용 서비스입니다.\n간편 등록 후 이용해 주세요.");
+          const vipModal = document.getElementById("vipModal");
+          if (vipModal) vipModal.style.display = "flex";
+          return;
+        }
         toggleRoomSelection(roomObj, btn);
       });
       
@@ -303,6 +311,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // --- 호실 다중 선택 로직 ---
   function toggleRoomSelection(roomObj, btnElement) {
+    if (!isMemberLoggedIn()) {
+      alert("호실 선택 및 실시간 분양가/임대료 확인은 간편 무료 회원(VIP) 전용 서비스입니다.\n간편 등록 후 이용해 주세요.");
+      const vipModal = document.getElementById("vipModal");
+      if (vipModal) vipModal.style.display = "flex";
+      return;
+    }
+
     const idx = selectedRooms.findIndex(r => r.room === roomObj.room);
     
     if (idx > -1) {

@@ -523,8 +523,8 @@
       <!-- 호실 목록 -->
       <article class="room-grid-card">
         <h3 class="room-grid-title" style="display:flex; justify-content:space-between; align-items:center;">
-          <span>호실 선택 (다중 선택 가능)</span>
-          <span style="font-size:0.8rem; font-weight:normal; color:var(--text-muted);">*클릭 시 선택 토글</span>
+          <span>호실 선택 <span style="font-size:0.75rem; background:#fee2e2; color:#ef4444; padding:2px 8px; border-radius:4px; margin-left:6px; font-weight:700;">🔒 회원전용</span></span>
+          <span style="font-size:0.8rem; font-weight:normal; color:var(--text-muted);">*VIP 간편등록 시 선택 가능</span>
         </h3>
         <div class="room-grid" id="roomGrid">
           <!-- JS에서 동적 렌더링 -->
@@ -1119,9 +1119,46 @@
                     })
                 }).catch(err => console.log('Telegram notice sent'));
 
-                alert(`환영합니다, ${name}님! 🎉\nVIP 회원 인증이 완료되어 관심 호실 견적서 및 다운로드 기능을 자유롭게 이용하실 수 있습니다.`);
+                alert(`환영합니다, ${name}님! 🎉\nVIP 회원 인증이 완료되어 호실 선택 및 견적서 다운로드 기능을 자유롭게 이용하실 수 있습니다.`);
                 vipModal.style.display = 'none';
                 vipQuickForm.reset();
+                submitBtn.disabled = false;
+                submitBtn.innerText = origText;
+            });
+        }
+
+        // VIP 하단 구독 폼 처리
+        const subscribeForm = document.getElementById('subscribe-form');
+        if(subscribeForm) {
+            subscribeForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const submitBtn = subscribeForm.querySelector('button[type="submit"]');
+                const origText = submitBtn.innerText;
+                submitBtn.disabled = true;
+                submitBtn.innerText = '등록 중...';
+
+                const subName = document.getElementById('subName').value.trim();
+                const subContact = document.getElementById('subContact').value.trim();
+
+                // 회원 정보 저장
+                localStorage.setItem('elif_member_user', JSON.stringify({ name: subName, contact: subContact }));
+                window.dispatchEvent(new Event('elif_auth_changed'));
+
+                const message = `🔔 [VIP 관심고객 구독 신규접수]\n-----------------------------------\n▪️ 성함/상호: ${subName}\n▪️ 연락처: ${subContact}\n-----------------------------------\n* 홈페이지 VIP 구독 양식을 통해 접수되었습니다.`;
+                const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+                
+                fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        chat_id: TELEGRAM_CHAT_ID,
+                        text: message,
+                    })
+                }).catch(err => console.log('Telegram sent'));
+
+                alert(`환영합니다, ${subName}님! 🎉\nVIP 회원 등록이 완료되어 호실 선택 및 견적서 기능을 바로 이용하실 수 있습니다.`);
+                subscribeForm.reset();
                 submitBtn.disabled = false;
                 submitBtn.innerText = origText;
             });

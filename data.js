@@ -1382,107 +1382,123 @@ const ELIF_DATA = {
   "6F": [
     {
       "room": "601",
-      "type": "지식산업센터",
+      "type": "업무시설(지산)",
       "exclusive_m2": 132.02,
       "exclusive_pyung": 39.94,
-      "contract_m2": 276.2,
-      "contract_pyung": 83.55
+      "contract_m2": 279.4,
+      "contract_pyung": 84.52
     },
     {
       "room": "602",
-      "type": "지식산업센터",
+      "type": "업무시설(지산)",
       "exclusive_m2": 118.57,
       "exclusive_pyung": 35.87,
-      "contract_m2": 248.06,
-      "contract_pyung": 75.04
+      "contract_m2": 250.93,
+      "contract_pyung": 75.91
     },
     {
       "room": "603",
-      "type": "지식산업센터",
+      "type": "업무시설(지산)",
       "exclusive_m2": 118.57,
       "exclusive_pyung": 35.87,
-      "contract_m2": 248.06,
-      "contract_pyung": 75.04
+      "contract_m2": 250.93,
+      "contract_pyung": 75.91
     },
     {
       "room": "604",
-      "type": "지식산업센터",
+      "type": "업무시설(지산)",
       "exclusive_m2": 118.57,
       "exclusive_pyung": 35.87,
-      "contract_m2": 248.06,
-      "contract_pyung": 75.04
+      "contract_m2": 250.93,
+      "contract_pyung": 75.91
     },
     {
       "room": "605",
-      "type": "지식산업센터",
+      "type": "업무시설(지산)",
       "exclusive_m2": 118.57,
       "exclusive_pyung": 35.87,
-      "contract_m2": 248.06,
-      "contract_pyung": 75.04
+      "contract_m2": 250.93,
+      "contract_pyung": 75.91
     },
     {
       "room": "606",
-      "type": "지식산업센터",
+      "type": "업무시설(지산)",
       "exclusive_m2": 128.63,
       "exclusive_pyung": 38.91,
-      "contract_m2": 269.09,
-      "contract_pyung": 81.4
+      "contract_m2": 272.21,
+      "contract_pyung": 82.34
     },
     {
       "room": "607",
-      "type": "지식산업센터",
-      "exclusive_m2": 158.53,
-      "exclusive_pyung": 47.95,
-      "contract_m2": 331.64,
-      "contract_pyung": 100.32
+      "type": "업무시설(지산)",
+      "exclusive_m2": 158.88,
+      "exclusive_pyung": 48.06,
+      "contract_m2": 336.23,
+      "contract_pyung": 101.71
     },
     {
       "room": "608",
-      "type": "지식산업센터",
-      "exclusive_m2": 76.44,
-      "exclusive_pyung": 23.12,
-      "contract_m2": 159.92,
-      "contract_pyung": 48.38
+      "type": "업무시설(지산)",
+      "exclusive_m2": 76.61,
+      "exclusive_pyung": 23.18,
+      "contract_m2": 162.14,
+      "contract_pyung": 49.05
     },
     {
       "room": "609",
-      "type": "지식산업센터",
+      "type": "업무시설(지산)",
       "exclusive_m2": 140.26,
       "exclusive_pyung": 42.43,
-      "contract_m2": 293.44,
-      "contract_pyung": 88.76
+      "contract_m2": 296.84,
+      "contract_pyung": 89.79
     },
     {
       "room": "610",
-      "type": "지식산업센터",
+      "type": "업무시설(지산)",
       "exclusive_m2": 117.75,
       "exclusive_pyung": 35.62,
-      "contract_m2": 246.34,
-      "contract_pyung": 74.52
+      "contract_m2": 249.2,
+      "contract_pyung": 75.38
     },
     {
       "room": "611",
-      "type": "지식산업센터",
+      "type": "업무시설(지산)",
       "exclusive_m2": 117.75,
       "exclusive_pyung": 35.62,
-      "contract_m2": 246.34,
-      "contract_pyung": 74.52
+      "contract_m2": 249.2,
+      "contract_pyung": 75.38
     },
     {
       "room": "612",
-      "type": "지식산업센터",
+      "type": "업무시설(지산)",
       "exclusive_m2": 117.75,
       "exclusive_pyung": 35.62,
-      "contract_m2": 246.34,
-      "contract_pyung": 74.52
+      "contract_m2": 249.2,
+      "contract_pyung": 75.38
     },
     {
       "room": "613",
-      "type": "지식산업센터",
-      "exclusive_m2": 121.74,
-      "exclusive_pyung": 36.83,
-      "contract_m2": 254.69,
-      "contract_pyung": 77.05
+      "type": "업무시설(지산)",
+      "exclusive_m2": 122.01,
+      "exclusive_pyung": 36.91,
+      "contract_m2": 258.22,
+      "contract_pyung": 78.11
+    },
+    {
+      "room": "614",
+      "type": "업무시설(지산-실수요)",
+      "exclusive_m2": 235.24,
+      "exclusive_pyung": 71.16,
+      "contract_m2": 497.84,
+      "contract_pyung": 150.6
+    },
+    {
+      "room": "615",
+      "type": "업무시설(지산-실수요)",
+      "exclusive_m2": 1010.79,
+      "exclusive_pyung": 305.76,
+      "contract_m2": 2139.13,
+      "contract_pyung": 647.09
     }
   ],
   "7F": [

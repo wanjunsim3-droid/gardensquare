@@ -79,8 +79,54 @@ document.addEventListener("DOMContentLoaded", () => {
   const zoomOutBtn = document.getElementById("zoomOut");
   const zoomResetBtn = document.getElementById("zoomReset");
 
+  // --- 회원 인증 상태 관리 요소 및 로직 ---
+  const estimateLockOverlay = document.getElementById("estimateLockOverlay");
+  const memberStatusBanner = document.getElementById("memberStatusBanner");
+  const memberNameText = document.getElementById("memberNameText");
+  const btnMemberLogout = document.getElementById("btnMemberLogout");
+
+  function isMemberLoggedIn() {
+    return !!localStorage.getItem("elif_member_user");
+  }
+
+  function getMemberInfo() {
+    try {
+      return JSON.parse(localStorage.getItem("elif_member_user"));
+    } catch(e) {
+      return null;
+    }
+  }
+
+  function checkMemberAuth() {
+    const user = getMemberInfo();
+    if (user && user.name) {
+      if (estimateLockOverlay) estimateLockOverlay.style.display = "none";
+      if (memberStatusBanner) {
+        memberStatusBanner.style.display = "flex";
+        if (memberNameText) memberNameText.textContent = user.name;
+      }
+    } else {
+      if (estimateLockOverlay) estimateLockOverlay.style.display = "flex";
+      if (memberStatusBanner) memberStatusBanner.style.display = "none";
+    }
+  }
+
+  if (btnMemberLogout) {
+    btnMemberLogout.addEventListener("click", () => {
+      localStorage.removeItem("elif_member_user");
+      checkMemberAuth();
+      alert("로그아웃되었습니다. 견적서 확인을 원하시면 다시 간편 등록해 주세요.");
+    });
+  }
+
+  // 외부(구독폼 등)에서 인증 변경 시 리스너
+  window.addEventListener("elif_auth_changed", () => {
+    checkMemberAuth();
+  });
+
   // --- 초기 설정 ---
   initTheme();
+  checkMemberAuth();
   renderFloor(currentFloor);
   loadEstimatesFromStorage();
   
@@ -493,6 +539,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // --- 관심 견적 리스트 로직 ---
   btnAddToEstimate.addEventListener("click", () => {
+    if (!isMemberLoggedIn()) {
+      alert("관심 호실 견적서 담기 및 조회를 이용하시려면 간편 무료 회원등록(VIP)이 필요합니다.");
+      const vipModal = document.getElementById("vipModal");
+      if (vipModal) vipModal.style.display = "flex";
+      return;
+    }
+
     if (selectedRooms.length === 0) return;
     
     // 다중 선택된 호실을 각각 개별 견적 아이템으로 쪼개서 추가
@@ -676,6 +729,13 @@ document.addEventListener("DOMContentLoaded", () => {
   
   // --- 엑셀(CSV) 다운로드 ---
   btnExportCSV.addEventListener("click", () => {
+    if (!isMemberLoggedIn()) {
+      alert("견적서 엑셀 다운로드는 회원 전용 기능입니다. 먼저 간편 회원 등록을 진행해주세요.");
+      const vipModal = document.getElementById("vipModal");
+      if (vipModal) vipModal.style.display = "flex";
+      return;
+    }
+
     const currentTabEstimates = estimates[activeEstimateTab] || [];
     if (currentTabEstimates.length === 0) {
       alert(`${activeEstimateTab}차 견적에 다운로드할 호실이 없습니다.`);
@@ -717,6 +777,13 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   
   btnPrint.addEventListener("click", () => {
+    if (!isMemberLoggedIn()) {
+      alert("견적서 인쇄 및 PDF 저장은 회원 전용 기능입니다. 먼저 간편 회원 등록을 진행해주세요.");
+      const vipModal = document.getElementById("vipModal");
+      if (vipModal) vipModal.style.display = "flex";
+      return;
+    }
+
     const currentTabEstimates = estimates[activeEstimateTab] || [];
     if (currentTabEstimates.length === 0) {
       alert("인쇄할 견적 호실이 없습니다.");

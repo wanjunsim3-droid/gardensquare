@@ -2400,17 +2400,332 @@ body {
 }
 .promo-slider-btn.prev {
     left: 10px;
+/* 비교 테이블 항목 컬럼 및 강조 */
+.comparison-table td:first-child,
+.comparison-table th:first-child {
+  text-align: left;
+  padding-left: 1rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  background: var(--bg-primary);
+  width: 110px;
+}
+
+.comparison-table tr:last-child td {
+  border-bottom: none;
+}
+
+.comparison-table .highlight-row td {
+  background: var(--brand-gold-light);
+  color: var(--brand-gold);
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.comparison-table .highlight-row td:first-child {
+  color: var(--brand-gold);
+}
+
+/* 인쇄 및 프린터 스타일 정의 */
+@media print {
+  @page {
+    size: A4;
+    margin: 0.8cm;
+  }
+
+  body {
+    background: white !important;
+    color: #000000 !important;
+    font-size: 8.5pt !important;
+    line-height: 1.3 !important;
+  }
+  
+  /* 불필요한 UI 숨김 */
+  .app-header, 
+  .floor-selector,
+  .floor-summary-bar,
+  .blueprint-card, 
+  .room-grid-card,
+  .calculator-card, /* 계산기 숨김 */
+  .btn-action-group,
+  .btn-theme-toggle,
+  .app-footer,
+  .btn-delete,
+  .unit-switch,
+  .estimate-tabs {
+    display: none !important;
+  }
+  
+  .calculator-layout {
+    display: block !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+  
+  /* 견적서와 비교표를 가로 2열로 나란히 배치하여 A4 1장에 컴팩트하게 맞춤 */
+  .control-section {
+    display: grid !important;
+    grid-template-columns: 1.1fr 0.9fr !important;
+    gap: 0.5cm !important;
+    width: 100% !important;
+  }
+
+  .comparison-card, 
+  .comparison-card {
+    border: 1px solid #ccc !important;
+    border-radius: 6px !important;
+    padding: 0.8rem !important;
+    background: #fff !important;
+    page-break-inside: avoid !important;
+    box-shadow: none !important;
+    margin-bottom: 0 !important;
+  }
+  
+  .section-title {
+    font-size: 10pt !important;
+    margin-bottom: 0.5rem !important;
+    border-bottom: 1.5px solid #000 !important;
+    padding-bottom: 0.2rem !important;
+  }
+  
+  /* 비교표 인쇄 스타일 조정 */
+  .comparison-table th, 
+  .comparison-table td {
+    padding: 0.4rem 0.2rem !important;
+    border-bottom: 1px solid #ccc !important;
+    color: #000 !important;
+    font-size: 7.5pt !important;
+  }
+  .comparison-table th:first-child,
+  .comparison-table td:first-child {
+    background: #f0f0f0 !important;
+    border-right: 1px solid #ccc !important;
+    width: 80px !important;
+  }
+  .comparison-table .highlight-row td {
+    background: #f5f5f5 !important;
+    font-weight: 700 !important;
+    color: #000 !important;
+  }
+  
+  /* 견적 리스트 출력 가독성 개선 */
+  .estimate-list {
+    max-height: none !important;
+    margin-bottom: 0.5rem !important;
+  }
+  .estimate-item {
+    border: 1px solid #ddd !important;
+    background: #fafafa !important;
+    margin-bottom: 0.3rem !important;
+    padding: 0.4rem !important;
+  }
+  .estimate-item-title {
+    font-size: 8.5pt !important;
+  }
+  .estimate-item-desc {
+    color: #333 !important;
+    font-size: 7.5pt !important;
+    line-height: 1.2 !important;
+  }
+  .estimate-summary {
+    background: #fafafa !important;
+    border: 1px solid #ccc !important;
+    color: #000 !important;
+    padding: 0.5rem !important;
+    gap: 0.4rem !important;
+  }
+  .estimate-summary-row {
+    font-size: 8pt !important;
+  }
+  .estimate-summary-row.total {
+    border-top: 1px dashed #000 !important;
+    color: #000 !important;
+    padding-top: 0.3rem !important;
+    margin-top: 0.1rem !important;
+  }
+  .estimate-summary-row.total span:last-child {
+    font-size: 10pt !important;
+  }
+}
+
+/* 프로모션 슬라이더 스타일 */
+.promo-slider-container {
+    position: relative;
+    width: 100%;
+}
+.promo-slider-wrapper {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Firefox */
+}
+.promo-slider-wrapper::-webkit-scrollbar {
+    display: none; /* Chrome, Safari */
+}
+.promo-slide {
+    flex: 0 0 100%;
+    scroll-snap-align: center;
+    width: 100%;
+    object-fit: contain;
+}
+.promo-slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.4);
+    color: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s;
+}
+.promo-slider-btn:hover {
+    background: rgba(0, 0, 0, 0.7);
+}
+.promo-slider-btn.prev {
+    left: 10px;
 }
 .promo-slider-btn.next {
     right: 10px;
 }
 
-/* SEO?? ???? ??? ????(????? ???? ????) ????? */
+/* SEO 관련 보조 클래스 */
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+
+/* --- 흐르는 안내 배너 (Flowing Notice Ticker) --- */
+.flowing-notice-container {
+    width: 100%;
+    background: linear-gradient(90deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+    color: #ffffff;
+    overflow: hidden;
+    position: relative;
+    border-bottom: 2px solid #2563eb;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    height: 48px;
+    z-index: 90;
+}
+
+.flowing-notice-badge {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: linear-gradient(135deg, #e11d48, #f43f5e);
+    color: #ffffff;
+    font-weight: 800;
+    font-size: 0.88rem;
+    padding: 0 18px;
+    height: 100%;
+    z-index: 2;
+    box-shadow: 4px 0 12px rgba(0, 0, 0, 0.3);
+    letter-spacing: -0.3px;
+    white-space: nowrap;
+}
+
+.flowing-notice-track {
+    flex-grow: 1;
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+    display: flex;
+    mask-image: linear-gradient(to right, transparent 0%, black 24px, black calc(100% - 24px), transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 24px, black calc(100% - 24px), transparent 100%);
+}
+
+.flowing-notice-content {
+    display: inline-flex;
+    align-items: center;
+    gap: 4rem;
+    padding-left: 2rem;
+    animation: flowNoticeMarquee 32s linear infinite;
+    font-size: 1.02rem;
+    font-weight: 500;
+    letter-spacing: -0.3px;
+    flex-shrink: 0;
+}
+
+.flowing-notice-track:hover .flowing-notice-content {
+    animation-play-state: paused;
+}
+
+.flowing-notice-content .item {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.flowing-notice-content strong {
+    color: #38bdf8;
+    font-weight: 800;
+    font-size: 1.05rem;
+    background: linear-gradient(135deg, #38bdf8, #60a5fa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.flowing-notice-content .tag-lease {
+    background: rgba(56, 189, 248, 0.18);
+    color: #7dd3fc;
+    border: 1px solid rgba(56, 189, 248, 0.45);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.flowing-notice-content .tag-sale {
+    background: rgba(225, 29, 72, 0.2);
+    color: #fda4af;
+    border: 1px solid rgba(225, 29, 72, 0.45);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+@keyframes flowNoticeMarquee {
+    0% {
+        transform: translateX(0%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+@media (max-width: 768px) {
+    .flowing-notice-container {
+        height: 44px;
+    }
+    .flowing-notice-badge {
+        padding: 0 12px;
+        font-size: 0.8rem;
+    }
+    .flowing-notice-content {
+        font-size: 0.9rem;
+        gap: 2.5rem;
+        animation-duration: 25s;
+    }
+    .flowing-notice-content strong {
+        font-size: 0.92rem;
+    }
+}
 
 
 @media print {
-  header, footer, .hero, #promo, #schedule, #price, #floor-overview, #loi, #vip-subscribe, #location { display: none !important; }
+  header, footer, .hero, #promo, #schedule, #price, #floor-overview, #loi, #vip-subscribe, #location, .flowing-notice-container { display: none !important; }
   .viewer-section { display: none !important; }
   .calculator-card, .estimate-card { display: none !important; }
   .comparison-card { display: block !important; width: 100% !important; margin: 0 !important; border: none !important; box-shadow: none !important; }

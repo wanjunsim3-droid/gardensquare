@@ -237,6 +237,10 @@
     </header>
 
     <section class="hero">
+        <div class="hero-bg-slider">
+            <div class="hero-bg-slide active" style="background-image: url('hero_bg.jpg');"></div>
+            <div class="hero-bg-slide" style="background-image: url('hero_bg_2.jpg');"></div>
+        </div>
         <div class="hero-overlay"></div>
         <div class="hero-content container">
             <div class="celebration-banner" style="background: linear-gradient(135deg, #1e3a8a, #0ea5e9); color: white; padding: 1.2rem 2.5rem; border-radius: 50px; display: inline-flex; align-items: center; justify-content: center; gap: 1.2rem; margin-bottom: 2rem; box-shadow: 0 10px 25px rgba(14, 165, 233, 0.4); border: 2px solid rgba(255,255,255,0.2);">
@@ -253,8 +257,37 @@
                 <a href="#loi" class="btn btn-large btn-gradient">입주의향서 접수안내</a>
                 <a href="tel:1666-5984" class="btn btn-large btn-outline">상담문의 1666-5984</a>
             </div>
+            <div class="hero-slide-indicators">
+                <button class="hero-indicator active" data-slide="0" aria-label="주간 전경 사진"></button>
+                <button class="hero-indicator" data-slide="1" aria-label="야간 중정 가든 사진"></button>
+            </div>
         </div>
     </section>
+    <script>
+        (function() {
+            const slides = document.querySelectorAll('.hero-bg-slide');
+            const indicators = document.querySelectorAll('.hero-indicator');
+            if (slides.length < 2) return;
+            let currentSlide = 0;
+            function showSlide(index) {
+                slides.forEach((s, i) => s.classList.toggle('active', i === index));
+                indicators.forEach((b, i) => b.classList.toggle('active', i === index));
+                currentSlide = index;
+            }
+            let timer = setInterval(() => {
+                showSlide((currentSlide + 1) % slides.length);
+            }, 5000);
+            indicators.forEach((btn, idx) => {
+                btn.addEventListener('click', () => {
+                    clearInterval(timer);
+                    showSlide(idx);
+                    timer = setInterval(() => {
+                        showSlide((currentSlide + 1) % slides.length);
+                    }, 5000);
+                });
+            });
+        })();
+    </script>
 
     <section id="promo" class="section promo-section bg-light">
         <div class="container">

@@ -1096,9 +1096,9 @@
 
     <!-- 플로팅 퀵 액션 위젯 (카카오톡/온라인 간편 상담 & 직통 전화) -->
     <div class="floating-widget" role="complementary" aria-label="빠른 상담">
-        <a href="#faq" class="floating-btn kakao" id="btnQuickKakao" title="자주 묻는 질문">
+        <a href="#loi" class="floating-btn kakao" id="btnQuickKakao" title="간편 상담 신청">
             <span style="font-size: 1.2rem;">💬</span>
-            <span>자주 묻는 질문</span>
+            <span>간편 상담 신청</span>
         </a>
         <a href="tel:1666-5984" class="floating-btn call" title="전화 상담 연결">
             <span style="font-size: 1.1rem;">📞</span>
@@ -1196,6 +1196,20 @@
         const TELEGRAM_BOT_TOKEN = '8762807652:AAHCBmAMo-74Yqpg_3mhjWwFbHzyHeair7o';
         const TELEGRAM_CHAT_ID = '8699438791';
 
+        // 구글 시트 접수 (Apps Script 웹 앱) - 입점의향서 / VIP 구독 / VIP 간편등록
+        const SHEET_ENDPOINT = 'https://script.google.com/macros/s/AKfycbw7QWj3OOWMLERm9fi79fCqwz4CzPcZmDHGL4IJeMOZFPFFKd3aSF5wb_nOtZHA279eWg/exec';
+        function sendToSheet(payload) {
+            try {
+                fetch(SHEET_ENDPOINT, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify(payload),
+                    keepalive: true
+                }).catch(function () {});
+            } catch (e) {}
+        }
+
         // Form submission (LOI)
         const loiForm = document.getElementById('loi-form');
         if(loiForm) {
@@ -1212,6 +1226,7 @@
                 const contact = document.getElementById('contact').value;
                 const area = document.getElementById('area').value;
                 const purpose = document.getElementById('purpose').value;
+                sendToSheet({ type: 'loi', companyName: companyName, managerName: managerName, contact: contact, area: area, purpose: purpose });
 
                 const message = `🏢 [입점의향서 신규 접수 - 엘리프 마곡 가든스퀘어]\n-----------------------------------\n▪️ 상호명: ${companyName}\n▪️ 담당자: ${managerName}\n▪️ 연락처: ${contact}\n▪️ 희망면적: ${area}\n▪️ 희망유형: ${purpose}\n-----------------------------------`;
 
@@ -1296,6 +1311,8 @@
                 localStorage.setItem('elif_member_user', JSON.stringify({ name: name, contact: contact }));
                 window.dispatchEvent(new Event('elif_auth_changed'));
 
+                sendToSheet({ type: 'vip_quick', name: name, contact: contact });
+
                 // 텔레그램 알림 전송 (비동기)
                 const message = `👑 [VIP 간편 회원 등록 - 견적서 열람]\n-----------------------------------\n▪️ 성함/상호: ${name}\n▪️ 연락처: ${contact}\n-----------------------------------\n* 견적서 열람을 위해 VIP 등록을 완료했습니다.`;
                 const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
@@ -1334,6 +1351,8 @@
                 // 회원 정보 저장
                 localStorage.setItem('elif_member_user', JSON.stringify({ name: subName, contact: subContact }));
                 window.dispatchEvent(new Event('elif_auth_changed'));
+
+                sendToSheet({ type: 'vip_sub', name: subName, contact: subContact });
 
                 const message = `🔔 [VIP 관심고객 구독 신규접수]\n-----------------------------------\n▪️ 성함/상호: ${subName}\n▪️ 연락처: ${subContact}\n-----------------------------------\n* 홈페이지 VIP 구독 양식을 통해 접수되었습니다.`;
                 const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;

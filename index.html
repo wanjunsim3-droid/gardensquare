@@ -1400,6 +1400,19 @@
     <!-- 면적 및 임대료 계산기 스크립트 로드 -->
     <script src="data.js?v=10.0"></script>
     <script src="app.js?v=10.0"></script>
-    </body>
+        <!-- 메인 화면 상단 안내 배너: 5초 후 서서히 사라짐 -->
+    <script>
+    (function () {
+        var banner = document.querySelector('.celebration-banner');
+        if (!banner) return;
+        setTimeout(function () {
+            banner.style.transition = 'opacity 0.6s ease';
+            banner.style.opacity = '0';
+            banner.style.pointerEvents = 'none';
+            setTimeout(function () { banner.style.display = 'none'; }, 650);
+        }, 5000);
+    })();
+    </script>
+</body>
     
 </html>
